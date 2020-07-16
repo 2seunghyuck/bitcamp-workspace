@@ -33,4 +33,17 @@
 - 실습
     - src/main/java/Hello2.java
     - src/main/java/com/eomcs/basic 폴더 생성
-    -
+    - package 를 이용해 같은 이름의 파일을 구분할수 있게함
+    - pakkage 생성할때 -d옵션을 줘서 위치설정을 해줘야 하위폴더가 생김
+
+-패키지 소속 클래스 실행하기
+     -> java -classpath [클래스파일 있는폴더] [패키지명을 포함한 클래스이름]
+
+### 4일차
+
+- 어제 한거 리뷰
+- 소스파일과 클래스 블록, 클래스 파일의 관계
+    -com.eomcs.basic.ex01 패키지의 예제
+- 주석 종류와 사용법
+    -com.eomcs.basic.ex02 패키지 예제
+
