@@ -31,6 +31,6 @@
     - bitcamp-java-basic 폴더생성
     - > gradle init 실행하여 프로젝트 폴더를 초기화 시킨다.
 - 실습
-    - Hello2.java
-    - 다른위치에 class 파일 생성하기, 실행하기.
-    
+    - src/main/java/Hello2.java
+    - src/main/java/com/eomcs/basic 폴더 생성
+    -

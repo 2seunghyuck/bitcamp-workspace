@@ -1,4 +1,4 @@
-package hyuck.basic;
+package com.hyuck.basic;
 
 class Test {
     public static void main(String[] args){
