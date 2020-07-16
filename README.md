@@ -46,4 +46,5 @@
     -com.eomcs.basic.ex01 패키지의 예제
 - 주석 종류와 사용법
     -com.eomcs.basic.ex02 패키지 예제
-
+- 자바 언어로 값을 표현하는 문법(literal)
+    -com.eomcs.basic.ex03 패키지 예제
