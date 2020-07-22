@@ -16,7 +16,7 @@ class Exam0430 {
     System.out.println("------------------------");
     
     // 'A' 에서부터 'z'사이에있는 유니코드 문자값을 출력한다. 
-    for (int i = '\n'; i <= 'A'; i++) {
+    for (int i = '\"'; i <= 'A'; i++) {
       System.out.println((char)i);
       
     }
