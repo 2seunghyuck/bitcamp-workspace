@@ -158,5 +158,18 @@ mac OS 개발환경 구축하기
         - > gradle run
     - 자바 프로젝트 빌드하기 (실행파일 생성)
         - > gradle build
-    - eclipse IDE로 프로젝트 가져오기
-    - 
+
+### 8일차 (2020-07-22,수)
+
+- Gradle 로 자바 프로젝트를 eclipse 프로젝트로 설정
+    - 'build.gradle' 빌드 스크립트 파일에 'eclipse' 추가
+    - eclipse 설정파일 생성
+        -> gradle eclipse
+- Eclipse IDE 로 프로젝트 가져오기
+    - bitcamp-java-basic 임포트
+    - bitcamp-java-project 임포트
+
+- 값을 메모리에 저장하는 방식
+    - 부동소수점을 저장하는 방법
+    - 문자를 저장하는 방법
+    - 논리값을 저장하는 방법
