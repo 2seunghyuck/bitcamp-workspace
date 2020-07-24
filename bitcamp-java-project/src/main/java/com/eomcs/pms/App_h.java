@@ -54,7 +54,8 @@ public class App_h {
   }
 
   static void inputMembers() {
-    Scanner keyInput = new Scanner(System.in);
+    Scanner keyInput = new Scanner(System.in);// static 을 이용해 밖으로 꺼낼 수 있지만. 굳이 사용범위를 넓힐 필요는 없다.
+                                              // 설정을 단순화 시키는게 좋음.
     long currentMillis;
     for (int i = 0; i < MAX_LENGTH; i++) {
       count++;
