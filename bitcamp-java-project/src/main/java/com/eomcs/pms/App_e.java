@@ -10,25 +10,27 @@ import java.sql.Date;
 // - 배열을 사용하면 간단하게 여러개의 변수를 선언할 수 있다.
 // 4) 반복문을 사용하여 여러개의 값을 다루기
 // - 반복문을 사용하면 같은 코드를 중복해서 작성할 필요가 없다.
-
-public class App {
+// 5) 배열 갯수를 변수에서 관리하기.
+// - 변수의 값만 바꾸면 배열 개수를 바로 변경할 수 있어 편하다. 
+public class App_e {
 
   public static void main(String[] args) {
     
     java.util.Scanner keyInput = new Scanner(System.in);
     System.out.println("[회원]");
     
-    int[] no = new int[5];
-    String[] name = new String[5];
-    String[] email = new String[5];
-    String[] password = new String[5];
-    String[] photo = new String[5];
-    String[] tell = new String[5];
-    Date[] now = new Date[5];
+    int maxLength = 5;
+    int[] no = new int[maxLength];
+    String[] name = new String[maxLength];
+    String[] email = new String[maxLength];
+    String[] password = new String[maxLength];
+    String[] photo = new String[maxLength];
+    String[] tell = new String[maxLength];
+    Date[] now = new Date[maxLength];
     long currentMillis;
     int count = 0;
     
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < maxLength; i++) {
       count ++;
       System.out.print("번호? ");
       no[i] = keyInput.nextInt();
@@ -66,4 +68,3 @@ public class App {
       }
   }
 }
-
