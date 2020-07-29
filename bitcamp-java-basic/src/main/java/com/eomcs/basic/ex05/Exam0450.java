@@ -55,7 +55,8 @@ public class Exam0450 {
     
     // 이렇게 준비된 32비트 메모리에서 특정 비트의 값을 1로 설정하고 싶다면 
     // 다음과 같이 특정 비트의 값이 1인 수를 OR(|) 연산하라!
-    lang2 |= 0x80; // c = true 
+    //lang2 |= 0x80; // c = true  // = lang2 생략..
+    lang2 = lang2 | 0x80;
     // 00000000 | 10000000 = 10000000
 
     //lang2 |= 0x00; // c++ = false
@@ -76,6 +77,6 @@ public class Exam0450 {
     //lang2 |= 0x00; // css = false
 
     // 실무에서는 이렇게 비트를 이용하여 여러 개의 true/false 상태를 저장하기도 한다.
-
+    System.out.println(Integer.toBinaryString(lang2));
   }
 }
