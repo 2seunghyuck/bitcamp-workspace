@@ -16,6 +16,6 @@ public class Exam0220 {
 
   // void 타입은 리턴값이 없지만, 메서드에 변수를 받기 위해서는 return,을 꼭해줘야한다.
   static String m2(String names) {
-    return "의 자바교실";
+    return names + "의 자바교실";
   }
 }

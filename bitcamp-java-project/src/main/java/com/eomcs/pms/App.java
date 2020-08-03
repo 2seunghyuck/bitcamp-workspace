@@ -124,7 +124,7 @@ public class App {
     System.out.println("[작업 목록]");
     for (int i = 0; i < tcount; i++) {
       String state;
-      switch (tstate[count]) {
+      switch (tstate[i]) {
         case "0":
           state = "신규";
           break;
@@ -133,9 +133,8 @@ public class App {
           break;
         default:
           state = "완료";
-          break;
       }
-      System.out.printf("%d, %s, %s, %s, %s\n", tno[i], tcontent[i], pendDate[i], state,
+      System.out.printf("%d, %s, %s, %s, %s\n", tno[i], tcontent[i], tendDate[i], state,
           tmodifier[i]);
     }
 
