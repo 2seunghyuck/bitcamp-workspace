@@ -27,8 +27,14 @@ public class Exam0200 {
     m8("홍길동", 100, 90, 60);
     m8("홍길동", 100);
     m8("홍길동");
-    m10(new int[] {100,90,80}, new String[] {"국어", "영어", "수학"}, "홍길동");
+    m10(new int[] {100, 90, 80}, new String[] {"국어", "영어", "수학"}, "홍길동");
 
+    int sum = 0;
+    sum = plus(2, 3);
+    sum = plus(sum, 7);
+    sum = plus(sum, 4);
+    System.out.println(sum);
+    System.out.println(plus(plus(plus(2, 3),7),4));
   }
 
   static void m1() {
@@ -85,13 +91,13 @@ public class Exam0200 {
     System.out.printf("%s : %d(%d)\n", name, sum, avg);
   }
 
-//  static void m9(int... scores, String name) {
-//  가변 파라미터는 무조건 맨 끝에 와야한다.
-//  }
-//  static void m9(int...scores, int...scores2){
-//  가변 파라미터는 여러개 선언할 수 없다. 범위가 어디인지 구분할수 없기 때문.
-//  가변 파라미터 중간에 다른 변수가 오더라도 범위구분이 불가하므로 작동하지 않는다.
-//  }
+  // static void m9(int... scores, String name) {
+  // 가변 파라미터는 무조건 맨 끝에 와야한다.
+  // }
+  // static void m9(int...scores, int...scores2){
+  // 가변 파라미터는 여러개 선언할 수 없다. 범위가 어디인지 구분할수 없기 때문.
+  // 가변 파라미터 중간에 다른 변수가 오더라도 범위구분이 불가하므로 작동하지 않는다.
+  // }
   static void m10(int[] scores, String[] titles, String name) {
     if (scores.length != titles.length) {
       System.out.println(" 과목수와 점수의 갯수가 다릅니다.");
@@ -99,8 +105,12 @@ public class Exam0200 {
     }
     System.out.println(name + " 님의 점수");
     for (int i = 0; i < scores.length; i++) {
-      System.out.printf("%s = %d \n",titles[i], scores[i]);
+      System.out.printf("%s = %d \n", titles[i], scores[i]);
     }
   }
 
+  static int plus(int a, int b) {
+    return a + b;
+
+  }
 }
