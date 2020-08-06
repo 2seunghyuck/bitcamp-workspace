@@ -38,6 +38,8 @@ public class Exam0250 {
     c2.divide(4); // + 3 * 2 + 7 / 4
     c2.minus(5); // + 3 * 2 + 7 / 4 - 5 = ?
 
+    Calculator3.plus(3);
+
     System.out.printf("result = %d\n", c2.result);
   }
 }
