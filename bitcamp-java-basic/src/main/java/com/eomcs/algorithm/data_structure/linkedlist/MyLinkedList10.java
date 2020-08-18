@@ -14,7 +14,7 @@ package com.eomcs.algorithm.data_structure.linkedlist;
 // 10) 인스턴스필드에 대해 캡슐화를 적용한다.
 //  - 목록 크기를 리턴하는 size()를 추가로 정의한다.
 
-public class MyLinkedList {
+public class MyLinkedList10 {
   private Node first;
   private Node last;
   private int size;
@@ -126,11 +126,11 @@ public class MyLinkedList {
   public Object[] toArray() {
     Object[] arr = new Object[size];
 
-    Node cursor = this.first;
-    for(int i = 0; i < size; i++) {
-      arr[i] = cursor.value;
-      cursor = cursor.next;
-    }
+//    Node cursor = this.first;
+//    for(int i = 0; i < size; i++) {
+//      arr[i] = cursor.value;
+//      cursor = cursor.next;
+//    }
     return arr;
   }
 

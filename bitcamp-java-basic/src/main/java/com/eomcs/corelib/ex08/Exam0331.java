@@ -27,6 +27,7 @@ public class Exam0331 {
     table.remove("s02");
     table.remove("s03");
 
+    System.out.println(iterator.next());
     while (iterator.hasNext()) {
       System.out.println(iterator.next());
     }

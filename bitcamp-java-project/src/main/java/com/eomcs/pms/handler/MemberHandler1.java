@@ -14,6 +14,7 @@ public class MemberHandler1 {
     String tel;
     Date registerdDate;
   }
+
   final static int LENGTH = 100;
   static Member[] list = new Member[LENGTH];
   static int size;
@@ -30,11 +31,23 @@ public class MemberHandler1 {
     m.registerdDate = new java.sql.Date(System.currentTimeMillis());
     list[size++] = m;
   }
+
   public static void list() {
     System.out.println("[회원 목록]");
-    for(int i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
       Member m = list[i];
       System.out.printf("%d, %s, %s, %s, %s\n", m.no, m.name, m.email, m.tel, m.registerdDate);
     }
+  }
+
+  public static Member findByName(String name) {
+    for (int i = 0; i < size; i++) {
+      Member member = list[i];
+      if (member.name.equals(name)) {
+        return member;
+      }
+    }
+    return null;
+
   }
 }

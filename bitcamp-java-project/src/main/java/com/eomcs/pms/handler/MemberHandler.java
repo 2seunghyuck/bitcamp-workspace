@@ -45,4 +45,13 @@ public class MemberHandler {
     }
   }
 
+  public static Member findByName(String name) {
+    for(int i = 0; i < size; i ++) {
+      Member member = list[i];
+      if (member.name.equals(name)) {
+        return member;
+      }
+    }
+    return null;
+  }
 }

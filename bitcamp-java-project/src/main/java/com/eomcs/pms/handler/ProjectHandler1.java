@@ -27,7 +27,18 @@ public class ProjectHandler1 {
     p.content = prompt1.inputString("내용?");
     p.startDate = prompt1.inputDate("시작일?");
     p.endDate = prompt1.inputDate("종료일?");
-    p.producer = prompt1.inputString("만든이?");
+    while (true) {
+      String name = prompt1.inputString("만든이?(취소: 빈문자열)");
+      if (name.length() == 0) {
+        System.out.println("프로젝트 등록을 취소합니다.");
+        return;
+      } else if (MemberHandler1.findByName(name) != null) {
+        p.producer = name;
+        break;
+      }
+      System.out.println("등록된 회원이 아닙니다.");
+    }
+
     p.cooperator = prompt1.inputString("함께 만든이?");
     list[size++] = p;
   }
