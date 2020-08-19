@@ -16,10 +16,10 @@ public class MemberHandler1 {
   }
 
   final static int LENGTH = 100;
-  static Member[] list = new Member[LENGTH];
-  static int size;
+  Member[] list = new Member[LENGTH];
+  int size;
 
-  public static void add() {
+  public void add() {
     System.out.println("[새로운 회원 정보]");
     Member m = new Member();
     m.no = prompt1.inputInt("번호?");
@@ -32,7 +32,7 @@ public class MemberHandler1 {
     list[size++] = m;
   }
 
-  public static void list() {
+  public void list() {
     System.out.println("[회원 목록]");
     for (int i = 0; i < size; i++) {
       Member m = list[i];
@@ -40,7 +40,7 @@ public class MemberHandler1 {
     }
   }
 
-  public static Member findByName(String name) {
+  public Member findByName(String name) {
     for (int i = 0; i < size; i++) {
       Member member = list[i];
       if (member.name.equals(name)) {

@@ -1,6 +1,7 @@
 package com.eomcs.pms.handler;
 
 import java.sql.Date;
+import com.eomcs.util.Prompt;
 import com.eomcs.util.prompt1;
 
 public class ProjectHandler1 {
@@ -16,10 +17,16 @@ public class ProjectHandler1 {
   }
 
   final static int LENGTH = 100;
-  static Project[] list = new Project[LENGTH];
-  static int size;
+  Project[] list = new Project[LENGTH];
+  int size;
 
-  public static void add() {
+  MemberHandler1 memberHandler1;
+
+  public ProjectHandler1(MemberHandler1 memberHandler1) {
+    this.memberHandler1 = memberHandler1;
+  }
+
+  public void add() {
     Project p = new Project();
     System.out.println("[새로운 프로젝트]");
     p.no = prompt1.inputInt("번호?");
@@ -32,18 +39,33 @@ public class ProjectHandler1 {
       if (name.length() == 0) {
         System.out.println("프로젝트 등록을 취소합니다.");
         return;
-      } else if (MemberHandler1.findByName(name) != null) {
+      } else if (memberHandler1.findByName(name) != null) {
         p.producer = name;
         break;
       }
       System.out.println("등록된 회원이 아닙니다.");
     }
 
-    p.cooperator = prompt1.inputString("함께 만든이?");
+    StringBuilder names = new StringBuilder();
+    while (true) {
+      String name = Prompt.inputString("팀원? (완료 : 빈문자열) ");
+      if (name.length() == 0) {
+        break;
+      } else if (memberHandler1.findByName(name) != null) {
+        if (names.length() > 0) {
+          names.append(", ");
+        }
+        names.append(name);
+      } else {
+        System.out.println("등록된 회원이 아닙니다.");
+      }
+    }
+    p.cooperator = names.toString();
+
     list[size++] = p;
   }
 
-  public static void list() {
+  public void list() {
     System.out.println("[프로젝트 목록]");
     for (int i = 0; i < size; i++) {
       Project p = list[i];

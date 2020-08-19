@@ -15,12 +15,13 @@ public class MemberHandler {
     Date registeredDate;
   }
 
+
   static final int LENGTH = 100;
-  static Member[] list = new Member[LENGTH];
-  static int size = 0;
+  Member[] list = new Member[LENGTH];
+  int size = 0;
 
 
-  public static void add() {
+  public void add() {
     System.out.println("[회원 등록]");
 
     Member m = new Member();
@@ -34,7 +35,7 @@ public class MemberHandler {
     list[size++] = m;
   }
 
-  public static void list() {
+  public void list() {
     System.out.println("[회원 목록]");
 
     for (int i = 0; i < size; i++) {
@@ -45,9 +46,9 @@ public class MemberHandler {
     }
   }
 
-  public static Member findByName(String name) {
-    for(int i = 0; i < size; i ++) {
-      Member member = list[i];
+  public Member findByName(String name) {
+    for (int i = 0; i < this.size; i++) {
+      Member member = this.list[i];
       if (member.name.equals(name)) {
         return member;
       }

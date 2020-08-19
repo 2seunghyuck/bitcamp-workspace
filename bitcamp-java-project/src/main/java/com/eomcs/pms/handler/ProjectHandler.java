@@ -17,10 +17,17 @@ public class ProjectHandler {
 
   // 프로젝트 데이터
   static final int LENGTH = 100;
-  static Project[] list = new Project[LENGTH];
-  static int size = 0;
+  Project[] list = new Project[LENGTH];
+  int size = 0;
 
-  public static void add() {
+  MemberHandler memberHandler;
+  public ProjectHandler(MemberHandler memberHandler) {
+    this.memberHandler = memberHandler;
+  }
+
+  public void add() {
+
+
     System.out.println("[프로젝트 등록]");
     Project p = new Project();
     p.no = Prompt.inputInt("번호? ");
@@ -28,13 +35,12 @@ public class ProjectHandler {
     p.content = Prompt.inputString("내용? ");
     p.startDate = Prompt.inputDate("시작일? ");
     p.endDate = Prompt.inputDate("종료일? ");
-
     while (true) {
       String name = Prompt.inputString("만든이? (취소 : 빈문자열)");
       if (name.length() == 0) {
         System.out.println("프로젝트 등록을 취소합니다.");
         return;
-      } else if (MemberHandler.findByName(name) != null) {
+      } else if (memberHandler.findByName(name) != null) {
         p.owner = name;
         break;
       }
@@ -46,7 +52,7 @@ public class ProjectHandler {
       String name = Prompt.inputString("팀원? (완료 : 빈문자열) ");
       if (name.length() == 0) {
         break;
-      } else if (MemberHandler.findByName(name) != null) {
+      } else if (memberHandler.findByName(name) != null) {
         if (names.length() > 0) {
           names.append(", ");
         }
@@ -60,7 +66,7 @@ public class ProjectHandler {
     list[size++] = p;
   }
 
-  public static void list() {
+  public void list() {
     System.out.println("[프로젝트 목록]");
 
     for (int i = 0; i < size; i++) {
@@ -69,5 +75,6 @@ public class ProjectHandler {
       System.out.printf("%d, %s, %s, %s, %s, [%s]\n", // 출력 형식 지정
           p.no, p.title, p.startDate, p.endDate, p.owner, p.members);
     }
+
   }
 }
