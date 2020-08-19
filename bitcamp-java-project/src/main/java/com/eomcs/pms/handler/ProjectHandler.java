@@ -1,19 +1,11 @@
 package com.eomcs.pms.handler;
 
-import java.sql.Date;
+import com.eomcs.pms.domain.Project;
 import com.eomcs.util.Prompt;
 
 public class ProjectHandler {
 
-  static class Project {
-    int no;
-    String title;
-    String content;
-    Date startDate;
-    Date endDate;
-    String owner;
-    String members;
-  }
+  ProjectList projectlist = new ProjectList();
 
   // 프로젝트 데이터
   static final int LENGTH = 100;
@@ -26,7 +18,6 @@ public class ProjectHandler {
   }
 
   public void add() {
-
 
     System.out.println("[프로젝트 등록]");
     Project p = new Project();
@@ -63,15 +54,13 @@ public class ProjectHandler {
     }
     p.members = names.toString();
 
-    list[size++] = p;
+    projectlist.add(p);
   }
 
   public void list() {
     System.out.println("[프로젝트 목록]");
-
-    for (int i = 0; i < size; i++) {
-      // 번호, 프로젝트명, 시작일, 종료일, 만든이
-      Project p = list[i];
+    Project[] projects = projectlist.toArray();
+    for (Project p : projects) {
       System.out.printf("%d, %s, %s, %s, %s, [%s]\n", // 출력 형식 지정
           p.no, p.title, p.startDate, p.endDate, p.owner, p.members);
     }

@@ -10,8 +10,6 @@ public class App {
 
   public static void main(String[] args) {
 
-    // 기본생성자만 있는 경우는해당 인스턴스를 생성하고 초기화하는 과정에서
-    // 특별하게 넘겨줘야할 값이없는 경우이다.
     MemberHandler memberHandler = new MemberHandler();
 
     ProjectHandler projectHandler = new ProjectHandler(memberHandler);

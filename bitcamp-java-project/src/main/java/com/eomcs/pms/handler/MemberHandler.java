@@ -1,25 +1,11 @@
 package com.eomcs.pms.handler;
 
-import java.sql.Date;
+import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
 
 public class MemberHandler {
 
-  static class Member {
-    int no;
-    String name;
-    String email;
-    String password;
-    String photo;
-    String tel;
-    Date registeredDate;
-  }
-
-
-  static final int LENGTH = 100;
-  Member[] list = new Member[LENGTH];
-  int size = 0;
-
+  MemberList memberList = new MemberList();
 
   public void add() {
     System.out.println("[회원 등록]");
@@ -32,25 +18,26 @@ public class MemberHandler {
     m.photo = Prompt.inputString("사진? ");
     m.tel = Prompt.inputString("전화? ");
     m.registeredDate = new java.sql.Date(System.currentTimeMillis());
-    list[size++] = m;
+
+    memberList.add(m);
   }
 
   public void list() {
     System.out.println("[회원 목록]");
+    Member[] members = memberList.toArray();
 
-    for (int i = 0; i < size; i++) {
+    for (Member m : members) {
       // 번호, 이름, 이메일, 전화, 가입일
-      Member m = list[i];
       System.out.printf("%d, %s, %s, %s, %s\n", // 출력 형식 지정
           m.no, m.name, m.email, m.tel, m.registeredDate);
     }
   }
 
   public Member findByName(String name) {
-    for (int i = 0; i < this.size; i++) {
-      Member member = this.list[i];
-      if (member.name.equals(name)) {
-        return member;
+    Member[] members = memberList.toArray();
+    for (Member m : members) {
+      if (m.name.equals(name)) {
+        return m;
       }
     }
     return null;
