@@ -56,6 +56,59 @@ public class MemberHandler {
       System.out.printf("가입일 : %s\n", member.getRegisteredDate());
     }
   }
+  public void update() {
+    System.out.println("[회원정보 변경]");
+    int no = Prompt.inputInt("번호?");
+    Member member = findByNo(no);
+    if (member == null) {
+      System.out.println("해당번호의 회원정보가 없습니다.");
+    } else {
+      String name = Prompt.inputString(
+          String.format("이름(%s)? ", member.getName()));
+      String email = Prompt.inputString(
+          String.format("이메일(%s)? ", member.getEmail()));
+      String password = Prompt.inputString("암호? ");
+      String tel = Prompt.inputString(
+          String.format("전화(%s)? ", member.getTel()));
+      String photo = Prompt.inputString(
+          String.format("사진(%s)? ", member.getPhoto()));
+      String response = Prompt.inputString("정말 변경하시겠습니까 ? (y/N)");
+      if (response.equalsIgnoreCase("y")) {
+        member.setName(name);
+        member.setEmail(email);
+        member.setPassword(password);
+        member.setTel(tel);
+        member.setPhoto(photo);
+        System.out.println("회원정보를 변경하였습니다.");
+      }else {
+        System.out.println("회원정보 변경을 취소하였습니다.");
+      }
+    }
+  }
+  public void delete() {
+    System.out.println("[회원정보 변경]");
+    int no = Prompt.inputInt("번호?");
+    int index = indexOf(no);
+    if (index == -1) {
+      System.out.println("해당번호의 회원정보가 없습니다.");
+    } else {
+      String response = Prompt.inputString("정말 삭제 하시겠습니까 ? (y/N)");
+      if (response.equalsIgnoreCase("y")) {
+        memberList.remove(index);
+        System.out.println("회원정보를 삭제 하였습니다.");
+      } else {
+        System.out.println("삭제를 취소하였습니다.");
+      }
+    }
+  }
+  private int indexOf(int no) {
+    for(int i = 0; i < memberList.size(); i++) {
+      Member member = memberList.get(i);
+      if (member.getNo() == no) {
+        return i;
+      }
+    }    return -1;
+  }
   private Member findByNo(int no) {
     for(int i = 0; i < memberList.size(); i++) {
       Member member = memberList.get(i);
@@ -65,4 +118,5 @@ public class MemberHandler {
     }
     return null;
   }
+
 }
