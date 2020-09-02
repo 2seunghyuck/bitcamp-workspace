@@ -1,71 +1,88 @@
-# 14 - 인스턴스 연산자와 메서드, 그리고 세터(setter)/게터(getter)
+# 21 - 큐 자료구조 구현과 활용
 
-**인스턴스 메서드** 는 인스턴스의 필드를 다루는 일을 한다.
-즉 인스턴스 값을 다루는 **연산자(operator)** 역할을 수행한다.
-그래서 OOA/D(Object-Oriented Analysis/Design)에서는 메서드를 오퍼레이터라고 부른다.
+이번 훈련에서는 **큐(queue)** 방식으로 데이터를 저장하는 자료 구조를 만들어보자.
 
-이번 훈련에서는 인스턴스 메서드를 **연산자** 관점에서 바라보고 이해해보자.
-인스턴스 필드의 값을 외부에서 직접 접근하지 못하게 막고,
-대신 세터(setter)/게터(getter) 메서드를 통해 값을 조회하고 변경하자.
+**큐(queue)** 는
+
+- FIFO(First In First Out) 방식으로 데이터를 넣고 꺼낸다.
+- 데이터를 넣는 것을 `offer`라고 하고 목록의 맨 끝에 추가한다.
+- 데이터를 꺼내는 것을 `poll`이라 하고 목록의 맨 앞의 값을 꺼낸다.
+- 보통 입력한 순으로 데이터를 꺼내야 하는 상황에서 이 자료구조를 사용한다.
+- 예)
+  - 등록된 예약을 처리할 때 
+  - 네트워킹에서 연결된 순서대로 소켓을 승인하고 처리할 때
+
 
 ## 훈련 목표
 
-- 변수와 연산자 관점에서 인스턴스와 메서드를 이해한다.
-- 메서드를 활용하여 인스턴스 값을 다루는 연산자를 정의한다.
-- 캡슐화의 의미를 이해하고, 셋터/겟터를 만든다.
+- 큐(queue) 자료구조를 구현하고 구동 원리를 이해한다.
+- Object.clone() 메서드의 용도와 인스턴스를 복제하는 방법을 배운다.
+- 얕은 복제(shallow copy)와 깊은 복제(deep copy)의 차이점을 이해한다.
 
 ## 훈련 내용
 
-- 게시글, 회원 정보, 프로젝트 정보, 작업 정보를 다루는 세터/게터를 정의한다.
-- 세터/게터를 사용하여 인스턴스 필드 값을 조회하고 변경한다.  
-
-
+- `java.util.Queue` 인터페이스의 메서드를 모방하여 `Queue` 클래스를 구현한다. 
+- 큐를 이용하여 사용자가 입력한 명령을 보관한다.
+- 사용자가 입력한 명령을 순서대로 출력하는 `history2` 명령을 추가한다.
+  
 ## 실습
 
-### 1단계 - MemberHandler의 인스턴스 필드를 비공개로 전환한다.
+### 1단계 - `java.util.Queue` 인터페이스의 메서드를 모방하여 `Queue` 클래스를 구현한다. 
 
-- MemberHandler를 의존 객체로 사용하는 클래스(ProjectHandler, TaskHandler)에서
-  MemberHandler의 필드 값을 임의로 조작할 수 없도록 필드를 비공개(private)로 전환한다. 
+**큐(queue)** 자료 구조를 직접 구현해본다.
 
-#### 작업 파일
-
-- com.eomcs.pms.MemberHandler 클래스 변경
-
-### 2단계 - Board 인스턴스의 값을 다룰 연산자를 정의한다.
-
-- Board 클래스의 인스턴스 필드를 패키지 공개(default) 모드에서 
-  비공개(private) 모드로 전환한다.
-- 대신 세터/게터를 정의하여 필드 값을 다룰 수 있도록 한다.
+- `Queue` 클래스를 작성한다.
 
 #### 작업 파일
 
-- com.eomcs.pms.handler.BoardHandler$Board 클래스 변경
-- com.eomcs.pms.handler.BoardHandler 클래스 변경
+- com.eomcs.util.Queue 클래스 생성
 
 
+### 2단계 - 사용자가 입력한 명령을 스택에 보관한다. 
+
+- `Queue` 객체를 준비하여 사용자가 명령어를 입력할 때 마다 저장한다.
+
+#### 작업 파일
+
+- com.eomcs.pms.App 클래스 변경
 
 
-### 작업2) Member 인스턴스의 값을 다룰 연산자를 정의하라.
+### 3단계 - 사용자가 입력한 명령을 최신순으로 출력하는 `history2` 명령을 추가한다. 
 
-- Member.java
-    - 인스턴스 변수(필드)를 비공개(private)로 전환한다.
-    - 값을 설정하고 리턴해주는 세터/게터를 정의한다.
-- MemberHandler.java
-    - Member 인스턴스에 값을 넣고 꺼낼 때 세터/겟터를 사용한다.
+- 사용자가 입력한 명령을 최신순으로 출력하는 `printCommandHistory2()` 메서드를 정의한다.
+- `history2` 명령을 처리하는 분기문을 추가한다.
 
-### 작업3) Board 인스턴스의 값을 다룰 연산자를 정의하라.
+```
+명령> history2
+/board/add
+/board/add
+/board/add
+/board/list
+/board/detail
+:
+/member/add
+/member/add
+/member/add
+/member/list
+/member/detail
+:
+/member/detail
+/project/add
+/project/list
+history
+history2
+:q
 
-- Board.java
-    - 인스턴스 변수(필드)를 비공개(private)로 전환한다.
-    - 값을 설정하고 리턴해주는 세터/게터를 정의한다.
-- BoardHandler.java
-    - Board 인스턴스에 값을 넣고 꺼낼 때 세터/겟터를 사용한다.
+명령> 
+
+```
+
+#### 작업 파일
+
+- com.eomcs.pms.App 클래스 변경
+
 
 ## 실습 결과
 
-- src/main/java/com/eomcs/lms/domain/Lesson.java 변경
-- src/main/java/com/eomcs/lms/domain/Member.java 변경
-- src/main/java/com/eomcs/lms/domain/Board.java 변경
-- src/main/java/com/eomcs/lms/handler/LessonHandler.java 변경
-- src/main/java/com/eomcs/lms/handler/MemberHandler.java 변경
-- src/main/java/com/eomcs/lms/handler/BoardHandler.java 변경
+- src/main/java/com/eomcs/util/Queue.java 추가
+- src/main/java/com/eomcs/pms/App.java 변경
