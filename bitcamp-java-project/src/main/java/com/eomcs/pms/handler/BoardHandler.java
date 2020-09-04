@@ -1,13 +1,23 @@
 package com.eomcs.pms.handler;
 
 import com.eomcs.pms.domain.Board;
-import com.eomcs.util.ArrayList;
+import com.eomcs.util.AbstractList;
 import com.eomcs.util.Prompt;
 
 public class BoardHandler {
 
-  // BoardHandler 가 사용할 BoardList 객체를 준비한다.
-  ArrayList<Board> boardlist = new ArrayList<>();
+  // 1) 다형적 변수의 활용
+  // 목록을 다루는데 필요한 의존객체를 특정 클래스로 제한하지 말고
+  // 상위클래스의 레퍼런스를 사용하여 여러개의 서브클래스를 사용할 수 있도록 유연성을 제공
+  AbstractList<Board> boardList;
+
+  // 2) 의존객체의 주입 활용
+  //    - 의존 객체를 생성하지 말고 외부에서 주입받는다.
+  //    - 생성자의 특성을 이용하여 기본값을 생성
+
+  public BoardHandler(AbstractList<Board> list) {
+    this.boardList = list;
+  }
 
   public void add() {
     System.out.println("[새 게시글]");
@@ -21,12 +31,12 @@ public class BoardHandler {
     System.out.println("게시글을 등록하였습니다.");
     board.setViewCount(0);
 
-    boardlist.add(board);
+    boardList.add(board);
   }
 
   public void list() {
     System.out.println("[게시글 목록]");
-    Board[] boards = boardlist.toArray(new Board[] {});
+    Board[] boards = boardList.toArray(new Board[] {});
 
 
     for (Board board : boards) {
@@ -80,7 +90,7 @@ public class BoardHandler {
     } else {
       String response = Prompt.inputString("정말 삭제 하시겠습니까 ? (y/N)");
       if (response.equalsIgnoreCase("y")) {
-        boardlist.remove(index);
+        boardList.remove(index);
         System.out.println("게시글을 삭제 하였습니다.");
       } else {
         System.out.println("삭제를 취소하였습니다.");
@@ -88,8 +98,8 @@ public class BoardHandler {
     }
   }
   private int indexOf(int no) {
-    for(int i = 0; i < boardlist.size(); i++) {
-      Board board = boardlist.get(i);
+    for(int i = 0; i < boardList.size(); i++) {
+      Board board = boardList.get(i);
       if (board.getNo() == no) {
         return i;
       }
@@ -97,8 +107,8 @@ public class BoardHandler {
   }
 
   private Board findByNo(int no) {
-    for(int i = 0; i < boardlist.size(); i++) {
-      Board board = boardlist.get(i);
+    for(int i = 0; i < boardList.size(); i++) {
+      Board board = boardList.get(i);
       if (board.getNo() == no) {
         return board;
       }

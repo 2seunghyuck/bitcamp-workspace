@@ -2,20 +2,23 @@ package com.eomcs.pms.handler;
 
 import java.sql.Date;
 import com.eomcs.pms.domain.Task;
-import com.eomcs.util.ArrayList;
+import com.eomcs.util.AbstractList;
 import com.eomcs.util.Prompt;
 
 public class TaskHandler {
-  ArrayList<Task> tasklist = new ArrayList<>();
+
+  AbstractList<Task> taskList;
+  MemberHandler memberHandler;
+
+  public TaskHandler (AbstractList<Task> list, MemberHandler memberHandler) {
+    this.taskList = list;
+    this.memberHandler = memberHandler;
+  }
 
   static final int LENGTH = 100;
   Task[] list = new Task[LENGTH];
   int size = 0;
 
-  MemberHandler memberHandler;
-  public TaskHandler(MemberHandler memberHandler) {
-    this.memberHandler = memberHandler;
-  }
   public void add() {
 
     System.out.println("[작업 등록]");
@@ -37,12 +40,12 @@ public class TaskHandler {
       System.out.println("등록된 회원이 아닙니다.");
     }
 
-    tasklist.add(t);
+    taskList.add(t);
   }
 
   public void list() {
     System.out.println("[작업 목록]");
-    Task[] tasks = tasklist.toArray(new Task[] {});
+    Task[] tasks = taskList.toArray(new Task[] {});
     for (Task t : tasks) {
       String stateLabel = null;
       switch (t.getStatus()) {
@@ -150,7 +153,7 @@ public class TaskHandler {
     } else {
       String response = Prompt.inputString("정말 삭제 하시겠습니까 ? (y/N)");
       if (response.equalsIgnoreCase("y")) {
-        tasklist.remove(index);
+        taskList.remove(index);
         System.out.println("작업정보를 삭제 하였습니다.");
       } else {
         System.out.println("삭제를 취소하였습니다.");
@@ -158,8 +161,8 @@ public class TaskHandler {
     }
   }
   private int indexOf(int no) {
-    for(int i = 0; i < tasklist.size(); i++) {
-      Task task = tasklist.get(i);
+    for(int i = 0; i < taskList.size(); i++) {
+      Task task = taskList.get(i);
       if (task.getNo() == no) {
         return i;
       }
@@ -167,8 +170,8 @@ public class TaskHandler {
   }
 
   private Task findByNo(int no) {
-    for(int i = 0; i < tasklist.size(); i++) {
-      Task task = tasklist.get(i);
+    for(int i = 0; i < taskList.size(); i++) {
+      Task task = taskList.get(i);
       if (task.getNo() == no) {
         return task;
       }

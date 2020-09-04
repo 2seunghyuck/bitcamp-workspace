@@ -2,22 +2,26 @@ package com.eomcs.pms.handler;
 
 import java.sql.Date;
 import com.eomcs.pms.domain.Project;
-import com.eomcs.util.ArrayList;
+import com.eomcs.util.AbstractList;
 import com.eomcs.util.Prompt;
 
 public class ProjectHandler {
 
-  ArrayList<Project> projectlist = new ArrayList<>();
+  AbstractList<Project> projectList;
+  MemberHandler memberHandler;
+
+
+  public ProjectHandler (AbstractList<Project> list, MemberHandler memberHandler) {
+
+    this.projectList = list;
+    this.memberHandler = memberHandler;
+  }
 
   // 프로젝트 데이터
   static final int LENGTH = 100;
   Project[] list = new Project[LENGTH];
   int size = 0;
 
-  MemberHandler memberHandler;
-  public ProjectHandler(MemberHandler memberHandler) {
-    this.memberHandler = memberHandler;
-  }
 
   public void add() {
 
@@ -56,12 +60,12 @@ public class ProjectHandler {
     }
     p.setMembers(names.toString());
 
-    projectlist.add(p);
+    projectList.add(p);
   }
 
   public void list() {
     System.out.println("[프로젝트 목록]");
-    Project[] projects = projectlist.toArray(new Project[] {});
+    Project[] projects = projectList.toArray(new Project[] {});
     for (Project p : projects) {
       System.out.printf("%d, %s, %s, %s, %s, [%s]\n", // 출력 형식 지정
           p.getNo(), p.getTitle(), p.getStartDate(), p.getEndDate(), p.getOwner(), p.getMembers());
@@ -150,7 +154,7 @@ public class ProjectHandler {
     } else {
       String response = Prompt.inputString("정말 삭제 하시겠습니까 ? (y/N)");
       if (response.equalsIgnoreCase("y")) {
-        projectlist.remove(index);
+        projectList.remove(index);
         System.out.println("프로젝트를 삭제 하였습니다.");
       } else {
         System.out.println("삭제를 취소하였습니다.");
@@ -158,16 +162,16 @@ public class ProjectHandler {
     }
   }
   private int indexOf(int no) {
-    for(int i = 0; i < projectlist.size(); i++) {
-      Project project = projectlist.get(i);
+    for(int i = 0; i < projectList.size(); i++) {
+      Project project = projectList.get(i);
       if (project.getNo() == no) {
         return i;
       }
     }    return -1;
   }
   private Project findByNo(int no) {
-    for(int i = 0; i < projectlist.size(); i++) {
-      Project project = projectlist.get(i);
+    for(int i = 0; i < projectList.size(); i++) {
+      Project project = projectList.get(i);
       if (project.getNo() == no) {
         return project;
       }

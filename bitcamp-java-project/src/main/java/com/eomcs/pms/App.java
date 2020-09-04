@@ -1,9 +1,16 @@
 package com.eomcs.pms;
 
+import com.eomcs.pms.domain.Board;
+import com.eomcs.pms.domain.Member;
+import com.eomcs.pms.domain.Project;
+import com.eomcs.pms.domain.Task;
 import com.eomcs.pms.handler.BoardHandler;
 import com.eomcs.pms.handler.MemberHandler;
 import com.eomcs.pms.handler.ProjectHandler;
 import com.eomcs.pms.handler.TaskHandler;
+import com.eomcs.util.AbstractList;
+import com.eomcs.util.ArrayList;
+import com.eomcs.util.LinkedList;
 import com.eomcs.util.Prompt;
 import com.eomcs.util.Queue;
 import com.eomcs.util.Stack;
@@ -12,10 +19,19 @@ public class App {
 
   public static void main(String[] args) {
 
-    BoardHandler boardHandler = new BoardHandler();
-    MemberHandler memberHandler = new MemberHandler();
-    ProjectHandler projectHandler = new ProjectHandler(memberHandler);
-    TaskHandler taskHandler = new TaskHandler(memberHandler);
+    AbstractList<Board> boardList = new LinkedList<>();
+    // BoardHandler 가 작업하는데 필요한 의존객체를 외부에서 생성자를 통해 주입한다.
+    // => 이를 의존객체 주입이라고 한다 (Dependency Injection)
+    BoardHandler boardHandler = new BoardHandler(boardList);
+
+    AbstractList<Member> memberList = new ArrayList<>();
+    MemberHandler memberHandler = new MemberHandler(memberList);
+
+    AbstractList<Project> projectList = new LinkedList<>();
+    ProjectHandler projectHandler = new ProjectHandler(projectList, memberHandler);
+
+    AbstractList<Task> taskList = new ArrayList<>();
+    TaskHandler taskHandler = new TaskHandler(taskList, memberHandler);
 
     Stack<String> commandList = new Stack<>();
     Queue<String> commandList2 = new Queue<>();
