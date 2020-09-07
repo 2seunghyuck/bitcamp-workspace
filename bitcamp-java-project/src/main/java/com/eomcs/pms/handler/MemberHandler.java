@@ -2,6 +2,7 @@ package com.eomcs.pms.handler;
 
 import com.eomcs.pms.domain.Member;
 import com.eomcs.util.AbstractList;
+import com.eomcs.util.Iterator;
 import com.eomcs.util.Prompt;
 
 public class MemberHandler {
@@ -28,9 +29,10 @@ public class MemberHandler {
 
   public void list() {
     System.out.println("[회원 목록]");
-    Member[] members = memberList.toArray(new Member[] {});
+    Iterator<Member> iterator = memberList.iterator();
 
-    for ( Member m : members) {
+    while(iterator.hasNext()) {
+      Member m = iterator.next();
       // 번호, 이름, 이메일, 전화, 가입일
       System.out.printf("%d, %s, %s, %s, %s\n", // 출력 형식 지정
           m.getNo(), m.getName(), m.getEmail(), m.getTel(), m.getRegisteredDate());

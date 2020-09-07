@@ -1,63 +1,122 @@
-# 23 - 추상 클래스와 추상 메서드
+# 26-a. 중첩 클래스 : 스태틱 중첩 클래스(static nested class)
 
-**추상 클래스** 는 
+이번 훈련에서는 **스태틱 중첩 클래스** 문법을 사용하여 `Iterator` 구현체를 만들어 볼 것이다.
 
-- 서브 클래스에 기본 기능 및 공통 분모를 상속해 주는 역할을 하는 클래스다.
-- new 명령을 통해 인스턴스를 생성할 수 없다.
-- **상속** 의 기법 중에서 **일반화** 를 통해 수퍼 클래스를 정의한 경우 보통 추상 클래스로 선언한다.
-- 추상 메서드를 가질 수 있다.
+현재 작성한 `Iterator` 구현체를 보면, 
+- `ListIterator` 는 `AbstractList` 컬렉션에서만 사용된다. 
+- `StackIterator` 는 `Stack` 컬렉션에서만 사용된다. 
+- `QueueIterator` 는 `Queue` 컬렉션에서만 사용된다. 
 
-**추상 메서드** 는 
+이런 경우,
 
-- 서브 클래스에 따라 구현 방법이 다른 경우 보통 추상 메서드로 선언한다.
-- 서브 클래스에서 반드시 구현해야 하는 메서드다.
-- 즉 서브 클래스를 정의할 때 반드시 해당 메서드를 구현하도록 강제하고 싶다면 추상 메서드로 선언한다.
-- 일반 클래스는 추상 메서드를 가질 수 없다. 
-- 추상 클래스와 인터페이스 만이 추상 메서드를 가질 수 있다.
+- `Iterator` 구현체가 사용되는 컬렉션 클래스 안에 두는 것이 유지보수에 더 좋다.
+- 즉 사용되는 위치 가까이에 두는 것이 코드를 더 읽기 쉽게 하고 관리하기 편하게 만든다.
 
-이번 훈련에서는 **추상 클래스** 를 선언하고 **추상 메서드** 를 정의하는 것을 연습한다.
+특히 `Iterator` 구현체가 컬렉션의 멤버를 사용하고 있는데,
+
+- `Iterator` 구현체가 컬렉션의 멤버가 되면 컬렉션의 멤버에 바로 접근할 수 있어 목록 조회가 한결 편해진다.
+ 
+
+이렇게 컬렉션의 목록을 조회하는 `Iterator` 구현체를 **중첩 클래스** 로 정의하면,
+
+- 캡슐화를 통해 복잡한 구현 로직을 외부에 노출하지 않는 효과가 있다.
+- 즉 외부에서는 `Iterator` 구현체를 직접 사용하지 않기 때문에,
+  나중에 `Iterator` 구현체가 변경되더라도 영향을 받지 않는다.
+
+
+**중첩 클래스(nested class)** 는 
+
+- 다른 클래스 안에 정의된 클래스이다.
+- `스태틱 중첩 클래스(static nested class)` 와 
+  `논스태틱 중첩 클래스(non-static nested class)` 가 있다.
+- `스태틱 중첩 클래스` 는 스태틱 멤버로 정의한 클래스다.
+- `논스태틱 중첩 클래스` 스태틱 멤버가 아닌 중첩 클래스이다. 보통 `내부 클래스(inner class)`라 부른다.
+
+**중첩 클래스** 의 용도와 특징은,
+
+- 특정 클래스의 작업을 도와주는 작은 크기의 클래스를 정의할 때 주로 중첩 클래스로 정의한다.
+- 클래스가 사용되는 곳에 위치하기 때문에 코드를 읽기 쉽고 관리하기가 쉽다. 
+- 다른 클래스 안에 위치하기 때문에 캡슐화가 더 좋아진다. 
+  캡슐화가 더 좋아진다는 것은, 
+  복잡한 코드는 감추고 외부로부터의 접근은 줄이고 단순화시켜서
+  코드를 더 관리하게 쉽게 만든다는 의미다.
+  또한 바깥 클래스의 멤버에 대한 접근은 더 쉬워진다. 
+
+
+**스태틱 중첩 클래스(static nested class)** 는
+
+- 스태틱 멤버이기 때문에 인스턴스 멤버(필드나 메서드)에는 접근할 수 없다.
+- 비록 다른 클래스 안에 있지만 일반 패키지 클래스(top-level class)처럼 사용할 수 있다.
+
+
+**내부 클래스(inner class; non-static nested class)** 는 
+
+- 인스턴스 멤버(필드나 메서드)처럼 사용한다.
+- 그래서 바깥 클래스의 인스턴스 멤버를 직접 접근할 수 있다.
+- 왜? 
+  인스턴스 멤버이기 때문에 바깥 클래스의 인스턴스를 참조하는 `this` 내장 변수를 갖고 있다.
+- 따라서 inner class 를 사용하려면 바깥 클래스의 인스턴스를 먼저 생성해야 한다.
+
+**내부 클래스(inner class)** 의 또 다른 종류가 있는데,
+
+- 메서드 안에 정의하는 `로컬 클래스(local class)` 와 
+  이름 없이 정의하는 `익명 클래스(anonymous class)` 가 있다.
 
 
 ## 훈련 목표
 
-- **추상 클래스** 의 용도를 이해하고 활용법을 연습한다.
-- **추상 메서드** 의 용도와 활용법을 연습한다.
+- **스태틱 중첩 클래스** 를 만들고 사용하는 방법을 배운다.
+- **스태틱 중첩 클래스** 의 용도와 이점을 이해한다.
 
 
 ## 훈련 내용
 
-- `List` 클래스를 추상 클래스로 변경한다.
-- `List` 클래스의 메서드를 추상 메서드로 변경한다.
+- `ListIterator` 구현체를 `AbstraceList` 클래스 안에 스태틱 중첩 클래스로 정의한다. 
+- `StackIterator` 구현체를 `Stack` 클래스 안에 스태틱 중첩 클래스로 정의한다.
+- `QueueIterator` 구현체를 `Queue` 클래스 안에 스태틱 중첩 클래스로 정의한다.
 
 
 ## 실습
 
-### 1단계 - `List` 클래스를 추상 클래스로 선언한다.
+### 1단계 - `ListIterator` 구현체를 스태틱 중첩 클래스로 정의한다. 
 
-- `List` 클래스
-  - 추상 클래스로 선언한다.
-  - 이름을 `AbstractList` 로 바꾼다.
-  - 서브 클래스 쪽에서 반드시 재정의 해야 하는 메서드를 추상 메서드로 바꾼다. 
+- `AbstractList` 클래스
+  - `ListIterator` 구현체를 *스태틱 중첩 클래스* 로 정의한다. 
 
 #### 작업 파일
 
-- com.eomcs.util.List 클래스의 이름 변경
-  - com.eomcs.util.AbstractList 로 변경한다.
+- com.eomcs.util.AbsractList 클래스 변경
+- com.eomcs.util.ListIterator 클래스 삭제
 
-### 2단계 - XxxHandler 의 의존 객체 타입을 `List` 에서 `AbstractList` 로 변경한다.
+
+### 2단계 - `StackIterator` 구현체를 스태틱 중첩 클래스로 정의한다. 
+
+- `Stack` 클래스
+  - `StackIterator` 구현체를 *스태틱 중첩 클래스* 로 정의한다. 
 
 #### 작업 파일
 
-- com.eomcs.pms.handler.BoardHandler 클래스 변경
-- com.eomcs.pms.handler.MemberHandler 클래스 변경
-- com.eomcs.pms.handler.ProjectHandler 클래스 변경
-- com.eomcs.pms.handler.TaskHandler 클래스 변경
+- com.eomcs.util.Stack 클래스 변경
+- com.eomcs.util.StackIterator 클래스 삭제
+
+
+### 3단계 - `QueueIterator` 구현체를 스태틱 중첩 클래스로 정의한다. 
+
+- `Queue` 클래스
+  - `QueueIterator` 구현체를 *스태틱 중첩 클래스* 로 정의한다. 
+
+#### 작업 파일
+
+- com.eomcs.util.Queue 클래스 변경
+- com.eomcs.util.QueueIterator 클래스 삭제
 
 
 ## 실습 결과
 
 - src/main/java/com/eomcs/util/AbstractList.java 변경
-- src/main/java/com/eomcs/pms/handler/BoardHandler.java 변경
-- src/main/java/com/eomcs/pms/handler/MemberHandler.java 변경
-- src/main/java/com/eomcs/pms/handler/ProjectHandler.java 변경
-- src/main/java/com/eomcs/pms/handler/TaskHandler.java 변경
+- src/main/java/com/eomcs/util/Stack.java 변경
+- src/main/java/com/eomcs/util/Queue.java 변경
+- src/main/java/com/eomcs/util/ListIterator.java 삭제
+- src/main/java/com/eomcs/util/StackIterator.java 삭제
+- src/main/java/com/eomcs/util/QueueIterator.java 삭제
+  

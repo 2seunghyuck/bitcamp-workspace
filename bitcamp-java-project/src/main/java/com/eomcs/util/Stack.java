@@ -1,6 +1,7 @@
 package com.eomcs.util;
 
 import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
 
 // 1) Stack 을 구현하기 위해 기존에 작성한 MyLinkedList를 상속 받는다.
 // 2) 스택에 값을 추가하는 push() 메서드를 정의한다.
@@ -10,7 +11,8 @@ import java.util.EmptyStackException;
 //
 // 테스트2: MyStackTest2
 // 6) Object.clone()을 오버라이딩 : deep copy
-// 테스트3 : MyStackTest3
+//
+// 테스트3: MyStackTest3
 // 7) 제네릭 적용
 //
 public class Stack<E> extends LinkedList<E> implements Cloneable {
@@ -42,19 +44,48 @@ public class Stack<E> extends LinkedList<E> implements Cloneable {
   @Override
   public Stack<E> clone() throws CloneNotSupportedException {
     // 새 스택을 만든다.
-    Stack<E> newStack = new Stack<>();
+    Stack<E> newStack = new Stack<E>();
 
     // 기존 스택의 값을 가져온다.
     Object[] values = this.toArray();
 
     // 기존 스택의 값을 새 스택에 넣는다.
     for(Object value : values) {
-      newStack.push((E)value);
+      newStack.push((E) value);
     }
     return newStack;
   }
-}
 
+  // 수퍼클래스의 iterator() 는 ListIterator를 리턴하기 떄문에 Stack으로 목록을 관리하는 방식관 다르게
+  // 데이터를 조회한다. 따라서 Stack 에 맞는 Iterator을 리턴할 필요가 있다.
+  // => Overriding을 이용하여, 상속받은 메서드를 관리한다.
+  @Override
+  public Iterator<E> iterator() {
+    try {
+      return new StackIterator<E>(this.clone());
+    } catch (Exception e) {
+      throw new RuntimeException("스택 복제중에 오류 발생");
+    }
+  }
+  private static class StackIterator<E> implements Iterator<E>{
+
+    Stack<E> stack;
+
+    public StackIterator(Stack<E> stack) {
+      this.stack = stack;
+    }
+    @Override
+    public boolean hasNext() {
+      return !stack.empty();
+    }
+    @Override
+    public E next() {
+      if (stack.empty())
+        throw new NoSuchElementException();
+      return stack.pop();
+    }
+  }
+}
 
 
 

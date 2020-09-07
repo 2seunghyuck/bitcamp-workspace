@@ -1,32 +1,48 @@
 package com.eomcs.util;
 
+import java.util.NoSuchElementException;
 
-// 추상 클래스로 선언하므로써 직접 인스턴스를 생성하지 못하게 막는다
-// 서브클래스에 상속해주는 용도로만 사용하게 해주는 방법이다.
-// 서브클래스에서 반드시 재정의(override)해야하는 메서드를 추상 메서드로 만든다.
-public abstract class AbstractList<E> {
+// 이 추상 클래스는 List 규칙에 따라 작성한다.
+// => 단 일부 메서드는 이 클래스에서 구현하지만,
+//    나머지 메서드는 서브 클래스에서 구현하도록 남겨둔다.
+public abstract class AbstractList<E> implements List<E> {
 
   protected int size;
 
+  @Override
   public int size() {
     return this.size;
   }
 
-  //추상메서드
-  // -> 서브클래스에서 구체적인 실행을 하라는 얘기
-  // -> 서브클래스 마다 구현하는 방법이 다르면 추상메서드로 선언한다.
-  // -> 서브클래스에게 구현하도록 강제하는 방법
-  public abstract boolean add(E e);
+  // 컬렉션에서 목록조회를 담당할 Iterator 구현체를 리턴한다.
+  @Override
+  public Iterator<E> iterator() {
+    return new ListIterator<E>(this);
+  }
 
-  public abstract void add (int index, E element);
 
-  public abstract E get (int index);
+  // 인터페이스에 선언된 메서드 중에서 나머지 메서드는
+  // 서브 클래스의 특징에 따라 구현해야 하기 때문에 여기서 구현하지 않는다.
+  // => 즉 나머지 메서드는 추상 메서드인채로 남겨진다.
 
-  public abstract E set (int index, E element);
+  // static nested class
+  private static class ListIterator<E> implements Iterator<E>{
 
-  public abstract E remove (int index);
+    List<E> list;
+    int cursor; // 데이터 목록에서 값을 꺼낼 위치를 가리킨다.
 
-  public abstract Object[] toArray();
-
-  public abstract E[] toArray(E[] arr);
+    public ListIterator(List<E> list) {
+      this.list = list;
+    }
+    @Override
+    public boolean hasNext() {
+      return cursor < list.size();
+    }
+    @Override
+    public E next() {
+      if (cursor == list.size())
+        throw new NoSuchElementException();
+      return list.get(cursor++);
+    }
+  }
 }
