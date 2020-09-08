@@ -61,29 +61,29 @@ public class Stack<E> extends LinkedList<E> implements Cloneable {
   // => Overriding을 이용하여, 상속받은 메서드를 관리한다.
   @Override
   public Iterator<E> iterator() {
-    try {
-      return new StackIterator<E>(this.clone());
-    } catch (Exception e) {
-      throw new RuntimeException("스택 복제중에 오류 발생");
-    }
-  }
-  private static class StackIterator<E> implements Iterator<E>{
+    class StackIterator implements Iterator<E>{
 
-    Stack<E> stack;
+      Stack<E> stack;
 
-    public StackIterator(Stack<E> stack) {
-      this.stack = stack;
+      public StackIterator() {
+        try {
+          this.stack = Stack.this.clone();
+        } catch (Exception e) {
+          throw new RuntimeException("스택 복제중에 오류 발생");
+        }
+      }
+      @Override
+      public boolean hasNext() {
+        return !stack.empty();
+      }
+      @Override
+      public E next() {
+        if (stack.empty())
+          throw new NoSuchElementException();
+        return stack.pop();
+      }
     }
-    @Override
-    public boolean hasNext() {
-      return !stack.empty();
-    }
-    @Override
-    public E next() {
-      if (stack.empty())
-        throw new NoSuchElementException();
-      return stack.pop();
-    }
+    return new StackIterator();
   }
 }
 

@@ -17,32 +17,23 @@ public abstract class AbstractList<E> implements List<E> {
   // 컬렉션에서 목록조회를 담당할 Iterator 구현체를 리턴한다.
   @Override
   public Iterator<E> iterator() {
-    return new ListIterator<E>(this);
-  }
+    class ListIterator implements Iterator<E>{
+      int cursor;
 
-
-  // 인터페이스에 선언된 메서드 중에서 나머지 메서드는
-  // 서브 클래스의 특징에 따라 구현해야 하기 때문에 여기서 구현하지 않는다.
-  // => 즉 나머지 메서드는 추상 메서드인채로 남겨진다.
-
-  // static nested class
-  private static class ListIterator<E> implements Iterator<E>{
-
-    List<E> list;
-    int cursor; // 데이터 목록에서 값을 꺼낼 위치를 가리킨다.
-
-    public ListIterator(List<E> list) {
-      this.list = list;
+      @Override
+      public boolean hasNext() {
+        return cursor < AbstractList.this.size();
+      }
+      @Override
+      public E next() {
+        if (cursor == /*AbstractList.this.*/size())
+          // AbstractList.this. <- 를선언하지 않아도 스태틱 필드가 아니므로
+          // 바깥 클래스의 멤버를 찾아 사용하기 때문에
+          // nested class 에서 굳이 선언해 줄 필요가 없다.
+          throw new NoSuchElementException();
+        return get(cursor++);
+      }
     }
-    @Override
-    public boolean hasNext() {
-      return cursor < list.size();
-    }
-    @Override
-    public E next() {
-      if (cursor == list.size())
-        throw new NoSuchElementException();
-      return list.get(cursor++);
-    }
+    return new ListIterator();
   }
 }
