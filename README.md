@@ -402,3 +402,48 @@ macOS 개발 환경 구축하기
 
 - 예제 프로젝트 수행(bitcamp-java-project)
   - 24 버전 수행: 인터페이스를 활용한 객체 사용 규칙 정의
+
+## 34일차(2020-09-07,월)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 25 버전 수행: `Iterator` 디자인 패턴
+  - 26-a 버전 수행: 중첩 클래스 : 스태틱 중첩 클래스(static nested class)
+- 중첩 클래스
+  - com.eomcs.oop.ex11 패키지 예제
+
+## 35일차(2020-09-08,화)
+
+- 중첩 클래스
+  - com.eomcs.oop.ex11 패키지 예제(계속)
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 26-b 버전 수행: 논스태틱 중첩 클래스(inner class)
+  - 26-c 버전 수행: 로컬 클래스(local class)
+- 해커톤 명단 선정
+  - 김성태/박민섭/강사
+  - 최희진/김하연
+  - 이종엽/이승혁
+  - 조은채/김태희
+  - 김유아/오세준
+  - 이성권/권구현
+  - 김찬구/유지연
+  - 유아람/신소미
+  - 조아진/이재현
+  - 류승희/정지은/최진영
+  - 이건목/이용민
+- git repository 준비
+  - 팀원 중 한 명이 생성
+  - 다른 팀원을 협력자로 초대
+  - 로컬에 repository 복제
+- repository 폴더를 자바 프로젝트 폴더로 만들기
+  - `gradle init` 로 프로젝트 폴더 준비하기
+  - `.gitignore` 파일 추가하기
+- 초기 프로젝트 파일을 서버에 올리기
+  - `git add .` : 백업할 목록 작성
+  - `git commit -m "초기 프로젝트"` : 작업 내용 백업
+  - `git push` : 서버에 업로드
+  - `git pull` : 나머지 팀원들은 서버에 업로드 한 내용으로 로컬 저장소를 갱신한다.
+- gradle build script 파일 변경
+  - eclipse 설정 파일을 생성할 수 있도록 gradle 플러그인 설정
+- eclispe IDE로 프로젝트를 임포트 하기 
+  - `gradle eclipse` : 이클립스 용 설정 파일 생성
+
