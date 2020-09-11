@@ -1,62 +1,117 @@
-# 26-b. 중첩 클래스 : 논스태틱 중첩 클래스(non-static nested class; inner class)
+# 28-1. 커맨드 디자인 패턴을 적용하기 : 메서드를 객체로 분리하기
 
-이번 훈련에서는 **논스태틱 중첩 클래스** 문법을 사용하여 `Iterator` 구현체를 만들어 볼 것이다.
+이번 훈련에서는 **커맨드 패턴(command pattern)** 을 프로젝트에 적용할 것이다.
 
-**내부 클래스(inner class; non-static nested class)** 는, 
+**커맨드 디자인 패턴** 은, 
 
-- 바깥 클래스의 인스턴스 멤버이기 때문에   
-  바깥 클래스의 다른 인스턴스 멤버(필드나 메서드)에 직접 접근할 수 있다.
-- 따라서 바깥 클래스의 멤버를 사용하기 위해 내부 클래스의 객체를 생성할 때 
-  생성자 파라미터로 바깥 클래스의 인스턴스를 받을 필요가 없다.
+- 메서드의 객체화 설계 기법이다.
+- 한 개의 명령어를 처리하는 메서드를 별개의 클래스로 분리하는 기법이다. 
+- 이렇게 하면 명령어가 추가될 때마다 새 클래스를 만들면 되기 때문에  
+  기존 코드를 손대지 않아 유지보수에 좋다.
+- 즉 기존 소스에 영향을 끼치지 않고 새 기능을 추가하는 방식이다.
+- 명령처리를 별도의 객체로 분리하기 때문에 실행 내역을 관리하기 좋고,
+  각 명령이 수행했던 작업을 다루기가 편하다.
+- 인터페이스를 이용하면 메서드 호출 규칙을 단일화 할 수 있기 때문에 
+  코딩의 일관성을 높혀줄 수 있다.
+- 단 기능 추가할 때마다 해당 기능을 처리하는 새 클래스가 추가되기 때문에 
+  클래스 개수는 늘어난다.
+- 그러나 유지보수 측면에서는 기존 코드를 변경하는 것 보다는 
+  클래스 개수가 늘어나는 것이 좋다.
+- 유지보수 관점에서는 소스 코드를 일관성 있게 유지보수 할 수 있는게 더 중요한다.
+
 
 ## 훈련 목표
 
-- **논스태틱 중첩 클래스** 를 만들고 사용하는 방법을 배운다.
-- **논스태틱 중첩 클래스** 의 용도와 이점을 이해한다.
+- **커맨드 패턴** 의 클래스 구조와 구동원리를 이해한다.
+- **커맨드 패턴** 을 구현하는 방법을 배운다.
 
 
 ## 훈련 내용
 
-- `ListIterator` 구현체를 논스태틱 중첩 클래스로 정의한다. 
-- `StackIterator` 구현체를 논스태틱 중첩 클래스로 정의한다.
-- `QueueIterator` 구현체를 논스태틱 중첩 클래스로 정의한다.
-
+- 사용자 명령을 처리할 때 호출할 메서드의 규칙을 인터페이스로 정의한다.
+- 명령어를 처리하는 메서드를 인터페이스에 맞춰 별개의 클래스로 캡슐화 한다. 
 
 ## 실습
 
-### 1단계 - `ListIterator` 구현체를 논스태틱 중첩 클래스로 정의한다. 
+### 1단계 - 사용자 명령을 처리하는 메서드의 호출 규칙을 정의한다.
 
-- `AbstractList` 클래스
-  - `ListIterator` 구현체를 *논스태틱 중첩 클래스* 로 정의한다. 
-
-#### 작업 파일
-
-- com.eomcs.util.AbsractList 클래스 변경
-
-
-### 2단계 - `StackIterator` 구현체를 논스태틱 중첩 클래스로 정의한다. 
-
-- `Stack` 클래스
-  - `StackIterator` 구현체를 *논스태틱 중첩 클래스* 로 정의한다. 
+- `Command` 인터페이스를 정의한다.
+  - 사용자 명령을 처리할 때 호출되는 메서드를 선언한다.
 
 #### 작업 파일
 
-- com.eomcs.util.Stack 클래스 변경
+- com.eomcs.pms.handler.Command 생성
 
 
-### 3단계 - `QueueIterator` 구현체를 논스태틱 중첩 클래스로 정의한다. 
+### 2단계 - 명령을 처리하는 XxxHandler 의 각 메서드를 `Command` 구현체로 분리한다.
 
-- `Queue` 클래스
-  - `QueueIterator` 구현체를 *논스태틱 중첩 클래스* 로 정의한다. 
+- 각 명령어를 처리하는 메서드를 별도의 XxxCommand 클래스를 만들어 분리한다.
+  - `Command` 인터페이스 규칙에 따라 클래스를 정의한다.
+
+#### 작업 파일
+ 
+- com.eomcs.pms.handler.BoardAddCommand 생성
+- com.eomcs.pms.handler.BoardListCommand 생성
+- com.eomcs.pms.handler.BoardDetailCommand 생성
+- com.eomcs.pms.handler.BoardUpdateCommand 생성
+- com.eomcs.pms.handler.BoardDeleteCommand 생성
+- com.eomcs.pms.handler.BoardHandler 삭제
+- com.eomcs.pms.handler.MemberAddCommand 생성
+- com.eomcs.pms.handler.MemberListCommand 생성
+- com.eomcs.pms.handler.MemberDetailCommand 생성
+- com.eomcs.pms.handler.MemberUpdateCommand 생성
+- com.eomcs.pms.handler.MemberDeleteCommand 생성
+- com.eomcs.pms.handler.MemberHandler 삭제
+- com.eomcs.pms.handler.ProjectAddCommand 생성
+- com.eomcs.pms.handler.ProjectListCommand 생성
+- com.eomcs.pms.handler.ProjectDetailCommand 생성
+- com.eomcs.pms.handler.ProjectUpdateCommand 생성
+- com.eomcs.pms.handler.ProjectDeleteCommand 생성
+- com.eomcs.pms.handler.ProjectHandler 삭제
+- com.eomcs.pms.handler.TaskAddCommand 생성
+- com.eomcs.pms.handler.TaskListCommand 생성
+- com.eomcs.pms.handler.TaskDetailCommand 생성
+- com.eomcs.pms.handler.TaskUpdateCommand 생성
+- com.eomcs.pms.handler.TaskDeleteCommand 생성
+- com.eomcs.pms.handler.TaskHandler 삭제
+
+
+### 3단계 - 사용자가 명령어를 입력했을 때 `Command` 구현체를 실행하도록 변경한다.
+
+- `App` 클래스가 XxxCommand 객체를 통해 처리하도록 변경한다.
 
 #### 작업 파일
 
-- com.eomcs.util.Queue 클래스 변경
+- com.eocms.pms.App 클래스 변경
 
 
 ## 실습 결과
 
-- src/main/java/com/eomcs/util/AbstractList.java 변경
-- src/main/java/com/eomcs/util/Stack.java 변경
-- src/main/java/com/eomcs/util/Queue.java 변경
+- src/main/java/com/eomcs/pms/handler/Command.java 생성
+- src/main/java/com/eomcs/pms/handler/BoardAddCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/BoardListCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/BoardDetailCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/BoardUpdateCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/BoardDeleteCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/BoardHandler.java 삭제
+- src/main/java/com/eomcs/pms/handler/MemberAddCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/MemberListCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/MemberDetailCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/MemberUpdateCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/MemberDeleteCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/MemberHandler.java 삭제
+- src/main/java/com/eomcs/pms/handler/ProjectAddCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/ProjectListCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/ProjectDetailCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/ProjectUpdateCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/ProjectDeleteCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/ProjectHandler.java 삭제
+- src/main/java/com/eomcs/pms/handler/TaskAddCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/TaskListCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/TaskDetailCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/TaskUpdateCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/TaskDeleteCommand.java 생성
+- src/main/java/com/eomcs/pms/handler/TaskHandler.java 삭제
+- src/main/java/com/eomcs/pms/App.java 변경
+
   
