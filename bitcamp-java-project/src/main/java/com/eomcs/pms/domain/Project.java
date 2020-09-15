@@ -9,6 +9,8 @@ public class Project {
   private Date startDate;
   private Date endDate;
   private String owner;
+  private String members;
+
   public int getNo() {
     return no;
   }
@@ -51,6 +53,35 @@ public class Project {
   public void setMembers(String members) {
     this.members = members;
   }
-  private String members;
+
+  public String toCsvString() {
+    return String.format("%d,%s,%s,%s,%s,%s,%s\n",
+        this.getNo(),
+        this.getTitle(),
+        this.getContent(),
+        this.getStartDate().toString(),
+        this.getEndDate().toString(),
+        this.getOwner(),
+        this.getMembers()
+        );
+
+  }
+
+  public static Project valueOfCsv(String csv) {
+
+    String[] values = csv.split(",");
+
+    Project project = new Project();
+    project.setNo(Integer.parseInt(values[0]));
+    project.setTitle(values[1]);
+    project.setContent(values[2]);
+    project.setStartDate(Date.valueOf(values[3]));
+    project.setEndDate(Date.valueOf(values[4]));
+    project.setOwner(values[5]);
+    project.setMembers(values[6]);
+
+    return project;
+  }
+
 }
 

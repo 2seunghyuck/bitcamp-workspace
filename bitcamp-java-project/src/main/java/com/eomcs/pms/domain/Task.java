@@ -7,6 +7,8 @@ public class Task {
   private String content;
   private Date deadline;
   private String owner;
+  private int status;
+
   public int getNo() {
     return no;
   }
@@ -37,6 +39,29 @@ public class Task {
   public void setStatus(int status) {
     this.status = status;
   }
-  private int status;
+  public String toCsvString() {
+    return String.format("%d,%s,%s,%d,%s\n",
+        this.getNo(),
+        this.getContent(),
+        this.getDeadline().toString(),
+        this.getStatus(),
+        this.getOwner()
+        );
+
+  }
+  public static Task valueOfCsv(String csv) {
+
+    String[] values = csv.split(",");
+
+    Task task = new Task();
+    task.setNo(Integer.parseInt(values[0]));
+    task.setContent(values[1]);
+    task.setDeadline(Date.valueOf(values[2]));
+    task.setStatus(Integer.parseInt(values[3]));
+    task.setOwner(values[4]);
+
+    return task;
+  }
+
 }
 
