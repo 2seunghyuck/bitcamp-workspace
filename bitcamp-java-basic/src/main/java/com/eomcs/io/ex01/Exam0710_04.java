@@ -7,38 +7,28 @@ public class Exam0710_04 {
 
   public static void main(String[] args) throws Exception {
 
-    // 결과 예)
-    // /Users/bitcamp/git/test
-    // src/
-    //   main/
-    //     java/
-    //       com/
-    //         Hello.java
-    //         Hello2.java
-    // build.gradle
-    // settings.gradle
-    // Hello.java
-    // ...
-    
+    // 1) 현재 디렉토리의 파일 및 디렉토리 이름 출력
+    // 2) 디렉토리 안의 목록을 출력하는 코드를 별도의 메서드로 분리한다.
+    // 3) 하위 디렉토리의 파일 및 디렉토리 목록도 출력한다.
+    // 4) 파일을 구분하기 위한 인덴트를 추가한다.
     File dir = new File(".");
-    System.out.println(dir.getCanonicalPath());
-    
-    printList(dir);
+    printFiles(dir, 0);
   }
 
-  static void printList(File dir) {
-    // 현재 디렉토리의 하위 파일 및 디렉토리 목록을 알아낸다.
+  static void printFiles(File dir, int level) {
+
     File[] files = dir.listFiles();
 
-    // 리턴 받은 파일 배열에서 이름을 꺼내 출력한다.
-    for (File file : files) {
-      if (file.isDirectory() && !file.isHidden()) {
-        System.out.printf("%s/\n", file.getName());
-      } else {
-        System.out.printf("%s\n", file.getName());
+    for(File file : files) {
+      for (int i = 0; i < level; i++) {
+        System.out.println("");
       }
+      System.out.println(file.getName());
+
+      if(file.isDirectory()) {
+        printFiles(file, level + 1);
+      }
+
     }
   }
 }
-
-
