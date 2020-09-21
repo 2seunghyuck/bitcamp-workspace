@@ -36,7 +36,7 @@ public class BufferedOutputStream extends FileOutputStream {
     super.close();
   }
 
-
+  // 버퍼에 남아있는 데이터를 파일에 출력한다.(버퍼가 꽉 차지 않으면  출력하지 않으므로 주는 메서드)
   @Override
   public void flush() throws IOException {
     if (cursor > 0) {

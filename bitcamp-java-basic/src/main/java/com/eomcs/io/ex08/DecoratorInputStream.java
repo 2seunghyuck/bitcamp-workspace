@@ -18,7 +18,6 @@ public abstract class DecoratorInputStream extends InputStream {
     // 이 장식품과 연결된 다른 부품의 read()를 실행한다.
     return 연결된부품.read();
   }
-
   @Override
   public void close() throws IOException {
     연결된부품.close();
