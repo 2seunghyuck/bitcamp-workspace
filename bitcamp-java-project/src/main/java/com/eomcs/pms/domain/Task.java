@@ -1,13 +1,16 @@
 package com.eomcs.pms.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Task {
+public class Task implements Serializable {
+
+  private static final long serialVersionUID = 1L;
   private int no;
   private String content;
   private Date deadline;
-  private String owner;
   private int status;
+  private String owner;
 
   public int getNo() {
     return no;
@@ -27,41 +30,18 @@ public class Task {
   public void setDeadline(Date deadline) {
     this.deadline = deadline;
   }
-  public String getOwner() {
-    return owner;
-  }
-  public void setOwner(String owner) {
-    this.owner = owner;
-  }
   public int getStatus() {
     return status;
   }
   public void setStatus(int status) {
     this.status = status;
   }
-  public String toCsvString() {
-    return String.format("%d,%s,%s,%d,%s\n",
-        this.getNo(),
-        this.getContent(),
-        this.getDeadline().toString(),
-        this.getStatus(),
-        this.getOwner()
-        );
-
+  public String getOwner() {
+    return owner;
   }
-  public static Task valueOfCsv(String csv) {
-
-    String[] values = csv.split(",");
-
-    Task task = new Task();
-    task.setNo(Integer.parseInt(values[0]));
-    task.setContent(values[1]);
-    task.setDeadline(Date.valueOf(values[2]));
-    task.setStatus(Integer.parseInt(values[3]));
-    task.setOwner(values[4]);
-
-    return task;
+  public void setOwner(String owner) {
+    this.owner = owner;
   }
+
 
 }
-

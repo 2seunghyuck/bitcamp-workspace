@@ -1,8 +1,11 @@
 package com.eomcs.pms.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Member {
+public class Member implements Serializable {
+
+  private static final long serialVersionUID = 1L;
   private int no;
   private String name;
   private String email;
@@ -10,6 +13,7 @@ public class Member {
   private String photo;
   private String tel;
   private Date registeredDate;
+
   public int getNo() {
     return no;
   }
@@ -53,29 +57,5 @@ public class Member {
     this.registeredDate = registeredDate;
   }
 
-  public String toCsvString() {
-    return String.format("%d,%s,%s,%s,%s,%s,%s\n",
-        this.getNo(),
-        this.getName(),
-        this.getEmail(),
-        this.getPassword(),
-        this.getPhoto(),
-        this.getTel(),
-        this.getRegisteredDate().toString());
-  }
-
-  public static Member valueOfCsv(String csv) {
-    String[] values = csv.split(",");
-    Member member = new Member();
-
-    member.setName(values[1]);
-    member.setEmail(values[2]);
-    member.setPassword(values[3]);
-    member.setPhoto(values[4]);
-    member.setTel(values[5]);
-    member.setRegisteredDate(Date.valueOf(values[6]));
-
-    return member;
-  }
 
 }
