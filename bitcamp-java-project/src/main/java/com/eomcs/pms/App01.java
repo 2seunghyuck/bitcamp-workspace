@@ -46,7 +46,7 @@ import com.eomcs.util.CsvObject;
 import com.eomcs.util.CsvObjectFactory;
 import com.eomcs.util.Prompt;
 
-public class App {
+public class App01 {
 
   // main(), saveBoards(), loadBoards() 가 공유하는 필드
   static List<Board> boardList = new ArrayList<>();
@@ -75,10 +75,10 @@ public class App {
     // => CsvObjectFactory의 구현체는 따로 만들지 않고 기존에 존재하던 도메인객체에서 불러온다.
     // 즉 메서드레퍼런스 문법을 이용하셔 기존 도메인 객체에 있던 valueOfCsv 메서드를 전달한다.
     // 단 ObjectFactory.create() 메서드와 valutOfCsv() 메서드의 파라미터와 리턴타입이 같다는 전제하에 사용가능.
-    loadObjects(boardList, boardFile, Board::new);
-    loadObjects(memberList, memberFile, Member::new);
-    loadObjects(projectList, projectFile, Project::new);
-    loadObjects(taskList, taskFile, Task::new);
+    loadObjects(boardList, boardFile, Board::valueOfCsv);
+    loadObjects(memberList, memberFile, Member::valueOfCsv);
+    loadObjects(projectList, projectFile, Project::valueOfCsv);
+    loadObjects(taskList, taskFile, Task::valueOfCsv);
 
     Map<String,Command> commandMap = new HashMap<>();
 

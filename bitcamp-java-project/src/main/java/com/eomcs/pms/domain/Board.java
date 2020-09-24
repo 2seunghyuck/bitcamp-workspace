@@ -1,11 +1,9 @@
 package com.eomcs.pms.domain;
 
-import java.io.Serializable;
 import java.sql.Date;
+import com.eomcs.util.CsvObject;
 
-public class Board implements Serializable {
-  private static final long serialVersionUID = 1L;
-
+public class Board implements CsvObject {
   private int no;
   private String title;
   private String content;
@@ -50,5 +48,54 @@ public class Board implements Serializable {
     this.viewCount = viewCount;
   }
 
+  // 이제 이 메서드는 CsvObject 인터페이스를 통해 규칙으로써 사용된다.
+  // 즉 Board클래스에서 임의로 만든 메서드가 아니라
+  // 인터페이스를 통해 공개된 메서드로 격상되었다.
 
+  @Override
+  public String toCsvString() {
+    // CSV 문자열을 만들 때 줄 바꿈 코드를 붙이지 않는다.
+    // 줄바꿈 코드는 CSV 문자열을 받아서 사용하는 쪽에서 다룰 문제다.
+    return String.format("%d,%s,%s,%s,%s,%d",
+        this.getNo(),
+        this.getTitle(),
+        this.getContent(),
+        this.getWriter(),
+        this.getRegisteredDate(),
+        this.getViewCount());
+  }
+
+  // CSV 문자열을 가지고 객체를 생성한다.
+  public static Board valueOfCsv(String csv) {
+    String[] fields = csv.split(",");
+
+    Board board = new Board();
+    board.setNo(Integer.parseInt(fields[0]));
+    board.setTitle(fields[1]);
+    board.setContent(fields[2]);
+    board.setWriter(fields[3]);
+    board.setRegisteredDate(Date.valueOf(fields[4]));
+    board.setViewCount(Integer.parseInt(fields[5]));
+
+    return board;
+  }
+
+  public Board() {}
+
+  public Board (String csv) {
+    String[] fields = csv.split(",");
+
+    this.setNo(Integer.parseInt(fields[0]));
+    this.setTitle(fields[1]);
+    this.setContent(fields[2]);
+    this.setWriter(fields[3]);
+    this.setRegisteredDate(Date.valueOf(fields[4]));
+    this.setViewCount(Integer.parseInt(fields[5]));
+
+  }
 }
+
+
+
+
+
