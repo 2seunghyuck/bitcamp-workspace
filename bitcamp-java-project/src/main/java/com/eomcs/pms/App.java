@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;
@@ -43,26 +44,26 @@ import com.eomcs.pms.handler.TaskDetailCommand;
 import com.eomcs.pms.handler.TaskListCommand;
 import com.eomcs.pms.handler.TaskUpdateCommand;
 import com.eomcs.util.CsvObject;
-import com.eomcs.util.CsvObjectFactory;
 import com.eomcs.util.Prompt;
+import com.google.gson.Gson;
 
 public class App {
 
   // main(), saveBoards(), loadBoards() 가 공유하는 필드
   static List<Board> boardList = new ArrayList<>();
-  static File boardFile = new File("./board.csv"); // 게시글을 저장할 파일 정보
+  static File boardFile = new File("./board.json"); // 게시글을 저장할 파일 정보
 
   // main(), saveMembers(), loadMembers() 가 공유하는 필드
   static List<Member> memberList = new LinkedList<>();
-  static File memberFile = new File("./member.csv"); // 회원을 저장할 파일 정보
+  static File memberFile = new File("./member.json"); // 회원을 저장할 파일 정보
 
   // main(), saveProjects(), loadProjects() 가 공유하는 필드
   static List<Project> projectList = new LinkedList<>();
-  static File projectFile = new File("./project.csv"); // 프로젝트를 저장할 파일 정보
+  static File projectFile = new File("./project.json"); // 프로젝트를 저장할 파일 정보
 
   // main(), saveTasks(), loadTasks() 가 공유하는 필드
   static List<Task> taskList = new ArrayList<>();
-  static File taskFile = new File("./task.csv"); // 작업을 저장할 파일 정보
+  static File taskFile = new File("./task.json"); // 작업을 저장할 파일 정보
 
 
   public static void main(String[] args) {
@@ -75,10 +76,10 @@ public class App {
     // => CsvObjectFactory의 구현체는 따로 만들지 않고 기존에 존재하던 도메인객체에서 불러온다.
     // 즉 메서드레퍼런스 문법을 이용하셔 기존 도메인 객체에 있던 valueOfCsv 메서드를 전달한다.
     // 단 ObjectFactory.create() 메서드와 valutOfCsv() 메서드의 파라미터와 리턴타입이 같다는 전제하에 사용가능.
-    loadObjects(boardList, boardFile, Board::new);
-    loadObjects(memberList, memberFile, Member::new);
-    loadObjects(projectList, projectFile, Project::new);
-    loadObjects(taskList, taskFile, Task::new);
+    loadObjects(boardList, boardFile, Board[].class);
+    loadObjects(memberList, memberFile, Member[].class);
+    loadObjects(projectList, projectFile, Project[].class);
+    loadObjects(taskList, taskFile, Task[].class);
 
     Map<String,Command> commandMap = new HashMap<>();
 
@@ -180,10 +181,9 @@ public class App {
     try {
       out = new BufferedWriter(new FileWriter(file));
 
-      for (CsvObject obj : list) {
-        out.write(obj.toCsvString());
-        out.write("\n");
-      }
+      Gson gson = new Gson();
+      String jsonStr = gson.toJson(list);
+      out.write(jsonStr);
 
       out.flush();
 
@@ -203,24 +203,23 @@ public class App {
   // 파일에서 CSV 문자열을 읽어 객체를 생성한 후 컬렉션에 저장한다.
   private static <T> void loadObjects(Collection<T> list,// 객체를 담을 컬렉션
       File file,                                         // CSV 문자열이 저장된 파일
-      CsvObjectFactory<T> factory)                       // CSV 문자열을 T 타입의 인스턴스로 만들어줄 객체
+      Class<T[]> clazz)  // JSON 문자열을 어떤타입의 배열로 만들것인지 알려주는 클래스 정보
   {
     BufferedReader in = null;
 
     try {
       in = new BufferedReader(new FileReader(file));
 
-      while (true) {
-        String record = in.readLine();
-        if (record == null) {
-          break;
-        }
-        list.add(factory.create(record));
-      }
-      System.out.printf("총 %d 개의 '%s'파일을 로딩했습니다.\n", list.size(), file.getName());
+      // 파일에서 모든 문자열을 읽어 StringBuilder에 담은 후 최종적으로 String 객체를 꺼낸다.
+      list.addAll(Arrays.asList(new Gson().fromJson(in, clazz)));
+
+      System.out.printf("'%s' 파일에서 총 %d 개의 객체를 로딩했습니다.\n",
+          file.getName(), list.size());
 
     } catch (Exception e) {
-      System.out.printf("'%s' 파일 읽기 중 오류 발생! - %s\n" ,file.getName(), e.getMessage());
+      System.out.printf("'%s' 파일 읽기 중 오류 발생! - %s\n",
+          file.getName(), e.getMessage());
+
     } finally {
       try {
         in.close();
