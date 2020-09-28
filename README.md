@@ -485,7 +485,7 @@ macOS 개발 환경 구축하기
 ## 39일차(2020-09-14,월)
 
 - 예외 처리
-  - com.eomcs.exception.* 패키지 예제
+  - com.eomcs.exception 패키지 예제
 - 예제 프로젝트 수행(bitcamp-java-project)
   - 29 버전 수행: 예외가 발생했을 때 시스템을 멈추지 않게 하는 방법
   - 30-a 버전 수행 : 파일 입출력 API를 활용하여 데이터를 읽고 쓰기 : CSV 파일 포맷
@@ -496,33 +496,57 @@ macOS 개발 환경 구축하기
   - 30-a 버전 수행 : 파일 입출력 API를 활용하여 데이터를 읽고 쓰기 : CSV 파일 포맷(계속)
   - 30-b 버전 수행 : 파일 입출력 API를 활용하여 데이터를 읽고 쓰기 : 리팩터링 I
 - 파일 입출력
-  - com.eomcs.io.ex01.* 패키지 예제
+  - com.eomcs.io.ex01 패키지 예제
 
 ## 41일차(2020-09-16,수)
 
 - 파일 입출력
-  - com.eomcs.io.ex01.* 패키지 예제(계속)
+  - com.eomcs.io.ex01 패키지 예제(계속)
 - 람다 
-  - com.eomcs.oop.ex12.* 패키지 예제
+  - com.eomcs.oop.ex12 패키지 예제
 
 ## 42일차(2020-09-17,목)
 
 - 람다 
-  - com.eomcs.oop.ex12.* 패키지 예제(계속)
+  - com.eomcs.oop.ex12 패키지 예제(계속)
 - 파일 입출력
-  - com.eomcs.io.ex02.* ~ 패키지 예제(계속)
+  - com.eomcs.io.ex02 ~ 패키지 예제(계속)
 
 ## 43일차(2020-09-18,금)
 
 - 파일 입출력
-  - com.eomcs.io.ex03.* ~ 패키지 예제(계속)
+  - com.eomcs.io.ex03 ~ 패키지 예제(계속)
 
 ## 44일차(2020-09-21,월)
 
 - 파일 입출력
-  - com.eomcs.io.ex04.* ~ 패키지 예제(계속)
+  - com.eomcs.io.ex04 ~ 패키지 예제(계속)
 
 ## 45일차(2020-09-22,화)
 
 - 파일 입출력
-  - com.eomcs.io.ex09.* ~ 패키지 예제(계속)
+  - com.eomcs.io.ex09 ~ 패키지 예제(계속)
+
+## 46일차(2020-09-23,수)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 30-a 버전 수행 : 파일 입출력 API를 활용하여 데이터를 읽고 쓰기 : FileInputStream/FileOutputStream
+  - 30-b 버전 수행 : 파일 입출력 API를 활용하여 데이터를 읽고 쓰기 : DataInputStream/DataOutputStream
+  - 30-c 버전 수행 : 파일 입출력 API를 활용하여 데이터를 읽고 쓰기 : BufferedInputStream/BufferedOutputStream
+  - 30-d 버전 수행 : 파일 입출력 API를 활용하여 데이터를 읽고 쓰기 : ObjectInputStream/ObjectOutputStream
+  - 30-e 버전 수행 : 파일 입출력 API를 활용하여 데이터를 읽고 쓰기 : 리팩터링
+
+## 47일차(2020-09-24,목)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 31-a 버전 수행 : 파일 입출력 API를 활용하여 데이터를 읽고 쓰기 II : FileReader/FileWriter + CSV 파일 포맷
+  - 31-b 버전 수행 : 파일 입출력 API를 활용하여 데이터를 읽고 쓰기 II : BufferedReader/BufferedWriter
+  - 31-c 버전 수행 : 파일 입출력 API를 활용하여 데이터를 읽고 쓰기 II : 리팩터링 I
+  - 31-d 버전 수행 : 파일 입출력 API를 활용하여 데이터를 읽고 쓰기 II : 리팩터링 II
+
+## 48일차(2020-09-25,금)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 32 버전 수행 : JSON 형식으로 객체를 읽고 쓰기 : Gson 라이브러리 활용
+- 네트워킹
+  - com.eomcs.net.ex01 ~ 패키지 예제
