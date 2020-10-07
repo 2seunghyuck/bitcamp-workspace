@@ -7,9 +7,8 @@ import java.net.Socket;
 
 // 역할:
 // - 소켓에 연결된 클라이언트 요청을 처리한다.
-// - main 실행과 분리하여 해당 코드를 실행한다.
-//
-
+// - 해당 코드를 main 실행과 분리하여 실행한다.
+// 
 public class RequestProcessor extends Thread {
   Socket socket;
 
@@ -19,10 +18,11 @@ public class RequestProcessor extends Thread {
 
   @Override
   public void run() {
-    // 이 메서드는 한번호출되면 재호출 될 수 없다.
-    // 따라서 한 스레드당 한번만 호출될 수 있다 .
-    // 이 메서드 안에 main 실행과 분리하여 독립적으로 실행할 코드를 둔다.
-
+    // 이 메서드는 한 번 호출되면 재호출될 수 없다.
+    // 따라서 한 스레드당 한 번만 호출될 수 있다.
+    //
+    // => main 실행과 분리하여 독립적으로 실행할 코드가 있다면 이 메서드 안에 둔다.
+    //
     try (Socket socket = this.socket;
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintStream out = new PrintStream(socket.getOutputStream());) {
@@ -30,10 +30,9 @@ public class RequestProcessor extends Thread {
       // 클라이언트 접속에 대해 더이상 안내 메시지를 제공하지 않는다.
 
       // 한 번 접속에 한 번의 요청만 처리한다.
-      sendResponse(out, compute(in.readLine()));
-    } catch(Exception e) {
-      System.out.printf("클라이언트 요청처리중 오류 발생 - %s\n", e.getMessage());
-      e.printStackTrace();
+      sendResponse(out, compute(in.readLine())); 
+    } catch (Exception e) {
+      System.out.printf("클라이언트 요청 처리 중 오류 발생! - %s\n", e.getMessage());
     }
   }
 
@@ -47,7 +46,7 @@ public class RequestProcessor extends Thread {
       int result = 0;
 
       switch (op) {
-        case "+": result = a + b; Thread.sleep(5000); break;
+        case "+": result = a + b; Thread.sleep(10000); break;
         case "-": result = a - b; break;
         case "*": result = a * b; break;
         case "/": result = a / b; break;

@@ -22,7 +22,7 @@ public class RequestProcessor {
       // 클라이언트 접속에 대해 더이상 안내 메시지를 제공하지 않는다.
 
       // 한 번 접속에 한 번의 요청만 처리한다.
-      sendResponse(out, compute(in.readLine()));
+      sendResponse(out, compute(in.readLine())); 
     }
   }
 
@@ -36,7 +36,7 @@ public class RequestProcessor {
       int result = 0;
 
       switch (op) {
-        case "+": result = a + b; Thread.sleep(5000); break;
+        case "+": result = a + b; Thread.sleep(10000); break;
         case "-": result = a - b; break;
         case "*": result = a * b; break;
         case "/": result = a / b; break;
