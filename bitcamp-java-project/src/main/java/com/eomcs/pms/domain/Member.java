@@ -1,9 +1,10 @@
 package com.eomcs.pms.domain;
 
 import java.sql.Date;
-import com.eomcs.util.CsvObject;
 
-public class Member implements CsvObject {
+//Member 클래스는 더이상 CsvObject를 구현할 필요가 없다.
+//
+public class Member {
   private int no;
   private String name;
   private String email;
@@ -54,51 +55,4 @@ public class Member implements CsvObject {
   public void setRegisteredDate(Date registeredDate) {
     this.registeredDate = registeredDate;
   }
-
-  // 객체의 필드 값을 CSV 형식의 문자열로 만들어 리턴한다.
-  @Override
-  public String toCsvString() {
-    // CSV 문자열을 만들 때 줄 바꿈 코드를 붙이지 않는다.
-    // 줄바꿈 코드는 CSV 문자열을 받아서 사용하는 쪽에서 다룰 문제다.
-    return String.format("%d,%s,%s,%s,%s,%s,%s",
-        this.getNo(),
-        this.getName(),
-        this.getEmail(),
-        this.getPassword(),
-        this.getPhoto(),
-        this.getTel(),
-        this.getRegisteredDate());
-  }
-
-  // CSV 문자열을 가지고 객체를 생성한다.
-  public static Member valueOfCsv(String csv) {
-    String[] fields = csv.split(",");
-
-    Member member = new Member();
-    member.setNo(Integer.parseInt(fields[0]));
-    member.setName(fields[1]);
-    member.setEmail(fields[2]);
-    member.setPassword(fields[3]);
-    member.setPhoto(fields[4]);
-    member.setTel(fields[5]);
-    member.setRegisteredDate(Date.valueOf(fields[6]));
-
-    return member;
-  }
-
-  public Member() {}
-
-  public Member (String csv) {
-    String[] fields = csv.split(",");
-
-    this.setNo(Integer.parseInt(fields[0]));
-    this.setName(fields[1]);
-    this.setEmail(fields[2]);
-    this.setPassword(fields[3]);
-    this.setPhoto(fields[4]);
-    this.setTel(fields[5]);
-    this.setRegisteredDate(Date.valueOf(fields[6]));
-
-  }
-
 }
