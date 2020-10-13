@@ -560,3 +560,39 @@ macOS 개발 환경 구축하기
 
 - 네트워킹
   - com.eomcs.net.ex04 ~ 패키지 예제
+
+## 51일차(2020-10-05,월)
+
+- 네트워킹
+  - com.eomcs.net.ex05 ~ 패키지 예제
+
+## 52일차(2020-10-06,화)
+
+- 네트워킹
+  - com.eomcs.net.ex11 ~ 패키지 예제
+
+## 53일차(2020-10-07,수)
+
+- 네트워킹
+  - com.eomcs.net.ex11 ~ 패키지 예제(계속)
+  - step13 패키지 추가
+    - HTTP 프로토콜 기반 웹 애플리케이션 만들기
+- 스레드
+  - 멀티태스킹, 멀티 프로세싱, 멀티 스레딩, CPU 스케줄링 등 개념
+  - com.eomcs.concurrent 패키지 예제
+
+## 54일차(2020-10-08,목)
+
+- 스레드
+  - com.eomcs.concurrent 패키지 예제(계속)
+- 과제
+  - UI 프로토타입 작성하기
+
+## 55일차(2020-10-12,월)
+
+- 디자인패턴: Observer 패턴
+  - com.eomcs.design_pattern.observer 패키지 예제
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 33 버전 수행 : `Observer` 디자인 패턴을 적용하기
+- 과제
+  - UI 프로토타입 작성하기
