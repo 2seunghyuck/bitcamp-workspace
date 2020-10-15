@@ -14,33 +14,50 @@ import com.eomcs.util.Prompt;
 // => 애플리케이션 아규먼트를 이용하여 서버의 주소를 입력받는다.
 
 public class ClientApp {
-  public static void main(String[] args) {
-    // 클라이언트가 서버에 stop 명령을 보내
-    boolean stop = false;
 
+  static String host;
+  static int port;
+
+  public static void main(String[] args) {
     if (args.length != 2) {
       System.out.println("프로그램 사용법 : ");
       System.out.println("java -cp ... clientApp 서버주소 포트번호");
       System.exit(0);
     }
-    try (Socket socket = new Socket(args[0], Integer.parseInt(args[1]));
+
+    host = args[0];
+    port = Integer.parseInt(args[1]);
+
+    while(true) {
+
+      String input = Prompt.inputString("명령 > ");
+      if (input.equalsIgnoreCase("quit"))
+        break;
+
+      request(input);
+
+      if(input.equalsIgnoreCase("stop"))
+        break;
+    }
+    System.out.println("안녕!");
+
+
+  }
+
+  private static void request(String message) {
+
+    boolean stop = false;
+    try (Socket socket = new Socket(host, port);
         PrintWriter out = new PrintWriter(socket.getOutputStream());
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-      while(true) {
+      out.println(message);
+      out.flush();
 
-        String input = Prompt.inputString("명령 > ");
-        out.println(input);
-        out.flush();
+      receiveResponse(out, in);
 
-        receiveResponse(in);
-
-        if (input.equalsIgnoreCase("quit")) {
-          break;
-        } else if (input.equalsIgnoreCase("stop")) {
-          stop = true;
-          break;
-        }
+      if (message.equalsIgnoreCase("stop")) {
+        stop = true;
       }
 
     } catch (Exception e) {
@@ -48,7 +65,7 @@ public class ClientApp {
     }
     if (stop) {
       // 서버를 멈추기 위해 접속했다가 끊는다.
-      try (Socket socket = new Socket(args[0], Integer.parseInt(args[1]))) {
+      try (Socket socket = new Socket(host, port)) {
         // 서버가 stop할 기회를 주기위해 잠시 연결한다.
       } catch (Exception e) {
         // 아무것도 안한다.
@@ -56,14 +73,19 @@ public class ClientApp {
     }
   }
 
-  private static void receiveResponse(BufferedReader in) throws Exception {
+  private static void receiveResponse(PrintWriter out, BufferedReader in) throws Exception {
 
     while(true) {
       String response = in.readLine();
-      if (response.length() == 0)
+      if (response.length() == 0) {
         break;
-
-      System.out.println(response);
+      } else if (response.equals("!{}!")) {
+        // 사용자로부터 입력을 받아 서버에 보낸다.
+        out.println(Prompt.inputString(""));
+        out.flush();
+      } else {
+        System.out.println(response);
+      }
     }
   }
 }
