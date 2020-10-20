@@ -44,8 +44,8 @@ public class ThreadPool {
       }
     }
   }
-  public void Execute(Runnable task) {
 
+  public void Execute(Runnable task) {
     if (stopping) {
       throw new RuntimeException("스레드풀이 종료 상태입니다!");
     }
@@ -61,36 +61,32 @@ public class ThreadPool {
     }
     t.setTask(task);
   }
-  public void shutdown() {
-    try {
-      this.stopping = true;
-
-      while (!workers.isEmpty()) { // 스레드풀에 대기 중인 스레드가 있다면,
-        Worker worker = workers.remove(0); // 맨 앞에 있는 스레드를 꺼내서
-        synchronized (worker) {
-          worker.notify(); // 스레드를 깨운다.
-          // 스레드는 깨어나면 stopping 상태에 따라 종료 여부를 결정하도록 프로그래밍 되어 있다.
-          // => Worker 스레드를 코드를 보라!
-        }
-      }
-
-      // 스레드풀에서 대기하지 않고 현재 작업을 수행하는 스레드가 있을 수 있다.
-      // 그 스레드가 작업을 끝낼 때까지 좀 기다리자.
-      Thread.sleep(2000);
-
-      // 다시 한 번 대기하고 있는 스레드를 종료해 보자!
-      while (!workers.isEmpty()) { // 스레드풀에 대기 중인 스레드가 있다면,
-        Worker worker = workers.remove(0); // 맨 앞에 있는 스레드를 꺼내서
-        synchronized (worker) {
-          worker.notify(); // 스레드를 깨운다.
-          // 스레드는 깨어나면 stopping 상태에 따라 종료 여부를 결정하도록 프로그래밍 되어 있다.
-          // => Worker 스레드를 코드를 보라!
-        }
-      }
-
-    } catch (Exception e) {
-      System.out.println("스레드풀을 종료하는 중에 예외 발생!");
-      e.printStackTrace();
-    }
-  }
+  //
+  //  public void shutdown() {
+  //    try {
+  //      this.stopping = true;
+  //
+  //      while (!workers.isEmpty()) {
+  //        Worker worker = workers.remove(0);
+  //        synchronized (worker) {
+  //          worker.notify(); // 스레드를 깨운다.
+  //        }
+  //      }
+  //      Thread.sleep(2000);
+  //
+  //      // 다시 한 번 대기하고 있는 스레드를 종료해 보자!
+  //      while (!workers.isEmpty()) { // 스레드풀에 대기 중인 스레드가 있다면,
+  //        Worker worker = workers.remove(0); // 맨 앞에 있는 스레드를 꺼내서
+  //        synchronized (worker) {
+  //          worker.notify(); // 스레드를 깨운다.
+  //          // 스레드는 깨어나면 stopping 상태에 따라 종료 여부를 결정하도록 프로그래밍 되어 있다.
+  //          // => Worker 스레드를 코드를 보라!
+  //        }
+  //      }
+  //
+  //    } catch (Exception e) {
+  //      System.out.println("스레드풀을 종료하는 중에 예외 발생!");
+  //      e.printStackTrace();
+  //    }
+  //  }
 }
