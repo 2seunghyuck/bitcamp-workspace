@@ -15,7 +15,6 @@ import com.eomcs.pms.domain.Board;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.pms.domain.Task;
-import com.eomcs.pms.domain.Todo;
 import com.eomcs.pms.handler.BoardAddCommand;
 import com.eomcs.pms.handler.BoardDeleteCommand;
 import com.eomcs.pms.handler.BoardDetailCommand;
@@ -38,11 +37,6 @@ import com.eomcs.pms.handler.TaskDeleteCommand;
 import com.eomcs.pms.handler.TaskDetailCommand;
 import com.eomcs.pms.handler.TaskListCommand;
 import com.eomcs.pms.handler.TaskUpdateCommand;
-import com.eomcs.pms.handler.TodoAddCommand;
-import com.eomcs.pms.handler.TodoDeleteCommand;
-import com.eomcs.pms.handler.TodoDetailCommand;
-import com.eomcs.pms.handler.TodoListCommand;
-import com.eomcs.pms.handler.TodoUpdateCommand;
 import com.eomcs.pms.listener.AppInitListener;
 import com.eomcs.pms.listener.DataHandlerListener;
 import com.eomcs.util.Prompt;
@@ -106,7 +100,6 @@ public class App {
     List<Member> memberList = (List<Member>) context.get("memberList");
     List<Project> projectList = (List<Project>) context.get("projectList");
     List<Task> taskList = (List<Task>) context.get("taskList");
-    List<Todo> todoList = (List<Todo>) context.get("todoList");
 
     Map<String,Command> commandMap = new HashMap<>();
 
@@ -135,12 +128,6 @@ public class App {
     commandMap.put("/task/update", new TaskUpdateCommand(taskList, memberListCommand));
     commandMap.put("/task/delete", new TaskDeleteCommand(taskList));
 
-    commandMap.put("일정추가", new TodoAddCommand(todoList));
-    commandMap.put("schedule", new TodoListCommand(todoList));
-    commandMap.put("일정삭제", new TodoDeleteCommand(todoList));
-    commandMap.put("일정조회", new TodoDetailCommand(todoList));
-    commandMap.put("일정수정", new TodoUpdateCommand(todoList,memberListCommand));
-
     commandMap.put("/hello", new HelloCommand());
 
     Deque<String> commandStack = new ArrayDeque<>();
@@ -148,7 +135,6 @@ public class App {
 
     loop:
       while (true) {
-
         String inputStr = Prompt.inputString("명령> ");
 
         if (inputStr.length() == 0) {

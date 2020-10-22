@@ -17,7 +17,6 @@ import com.eomcs.pms.domain.Board;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.pms.domain.Task;
-import com.eomcs.pms.domain.Todo;
 import com.google.gson.Gson;
 
 // 게시물, 회원, 프로젝트, 작업 데이터를 파일에서 로딩하고 파일로 저장하는 일을 한다.
@@ -35,9 +34,6 @@ public class DataHandlerListener implements ApplicationContextListener{
   List<Task> taskList = new ArrayList<>();
   File taskFile = new File("./task.json"); // 작업을 저장할 파일 정보
 
-  List<Todo> todoList = new ArrayList<>();
-  File todoFile = new File("./todo.json");
-
   @Override
   public void contextInitialized(Map<String,Object> context) {
     // 애플리케이션의 서비스가 시작되면 먼저 파일에서 데이터를 로딩한다.
@@ -47,7 +43,6 @@ public class DataHandlerListener implements ApplicationContextListener{
     loadData(memberList, memberFile, Member[].class);
     loadData(projectList, projectFile, Project[].class);
     loadData(taskList, taskFile, Task[].class);
-    loadData(todoList, todoFile, Todo[].class);
 
     // 옵저버가 파일에서 데이터(게시물,회원,프로젝트,작업)를 읽어 LIst 컬렉션에 저장한 다음.
     // 발행자가 데이터(게시물,회원,프로젝트,작업)를 사용할 수 있도록 맵객체에 담아서 공유한다.
@@ -55,7 +50,6 @@ public class DataHandlerListener implements ApplicationContextListener{
     context.put("memberList", memberList);
     context.put("projectList", projectList);
     context.put("taskList", taskList);
-    context.put("todoList", todoList);
   }
 
   @Override
@@ -67,7 +61,6 @@ public class DataHandlerListener implements ApplicationContextListener{
     saveData(memberList, memberFile);
     saveData(projectList, projectFile);
     saveData(taskList, taskFile);
-    saveData(todoList, todoFile);
 
   }
 
