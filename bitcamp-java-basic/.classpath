@@ -38,6 +38,61 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry sourcepath="/Users/user/.gradle/caches/modules-2/files-2.1/com.microsoft.sqlserver/mssql-jdbc/8.4.1.jre11/b61986fa1ae4030a686494a5f5cb9cd9d77a5a23/mssql-jdbc-8.4.1.jre11-sources.jar" kind="lib" path="/Users/user/.gradle/caches/modules-2/files-2.1/com.microsoft.sqlserver/mssql-jdbc/8.4.1.jre11/826cae8133d6cd489febc679f693150d0b6aa84a/mssql-jdbc-8.4.1.jre11.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc10/19.8.0.0/bc15f00ebacbeb0669f0ed925917c177912db7af/ojdbc10-19.8.0.0-sources.jar" kind="lib" path="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc10/19.8.0.0/3f90099d041551f4549f9dcb30f43628bcbb17c3/ojdbc10-19.8.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ucp/19.8.0.0/bc15f00ebacbeb0669f0ed925917c177912db7af/ucp-19.8.0.0-sources.jar" kind="lib" path="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ucp/19.8.0.0/f3ffaed1b8aa011e6a136af1c5ad2ce7be439cd3/ucp-19.8.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.security/oraclepki/19.8.0.0/bc15f00ebacbeb0669f0ed925917c177912db7af/oraclepki-19.8.0.0-sources.jar" kind="lib" path="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.security/oraclepki/19.8.0.0/78a5918f653efe20b800530f85f5c2a6f7a199a/oraclepki-19.8.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.security/osdt_core/19.8.0.0/bc15f00ebacbeb0669f0ed925917c177912db7af/osdt_core-19.8.0.0-sources.jar" kind="lib" path="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.security/osdt_core/19.8.0.0/9fabf9bfc46a1100daf4272beb676f8dab375a28/osdt_core-19.8.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.security/osdt_cert/19.8.0.0/bc15f00ebacbeb0669f0ed925917c177912db7af/osdt_cert-19.8.0.0-sources.jar" kind="lib" path="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.security/osdt_cert/19.8.0.0/5fa177c389d80e6815abc60086f5b9d93b489dc6/osdt_cert-19.8.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.ha/simplefan/19.8.0.0/bc15f00ebacbeb0669f0ed925917c177912db7af/simplefan-19.8.0.0-sources.jar" kind="lib" path="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.ha/simplefan/19.8.0.0/3cf48b723b2504863bd8898d74782af4635257ba/simplefan-19.8.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.ha/ons/19.8.0.0/bc15f00ebacbeb0669f0ed925917c177912db7af/ons-19.8.0.0-sources.jar" kind="lib" path="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.ha/ons/19.8.0.0/fe91e4a6e0fe481aba81730a5a2d497a02d54566/ons-19.8.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.nls/orai18n/19.8.0.0/bc15f00ebacbeb0669f0ed925917c177912db7af/orai18n-19.8.0.0-sources.jar" kind="lib" path="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.nls/orai18n/19.8.0.0/2a8804f4e13b5e0528e750d964a5744eceeb49f9/orai18n-19.8.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.xml/xdb/19.8.0.0/bc15f00ebacbeb0669f0ed925917c177912db7af/xdb-19.8.0.0-sources.jar" kind="lib" path="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.xml/xdb/19.8.0.0/15a294f90cc9604c91f46319287c200c81614e30/xdb-19.8.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.xml/xmlparserv2/19.8.0.0/bc15f00ebacbeb0669f0ed925917c177912db7af/xmlparserv2-19.8.0.0-sources.jar" kind="lib" path="/Users/user/.gradle/caches/modules-2/files-2.1/com.oracle.database.xml/xmlparserv2/19.8.0.0/babfefd035ffea28cd947481d843b2f9a31603ba/xmlparserv2-19.8.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="/Users/user/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1d064e61aad6c51cc77f9b59dc2cccc78e792f5a/failureaccess-1.0.1-sources.jar" kind="lib" path="/Users/user/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1dcf1de382a0bf95a3d8b0849546c88bac1292c9/failureaccess-1.0.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
