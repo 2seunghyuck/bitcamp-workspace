@@ -2,6 +2,7 @@ package com.eomcs.pms.handler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.domain.Member;
@@ -19,16 +20,17 @@ public class ProjectUpdateCommand implements Command {
   }
 
   @Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[프로젝트 변경]");
     int no = Prompt.inputInt("번호? ");
 
     try {
       Project project = projectDao.findByNo(no);
-      if(project == null) {
+      if (project == null) {
         System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
         return;
       }
+
       project.setTitle(Prompt.inputString(String.format(
           "프로젝트명(%s)? ", project.getTitle())));
       project.setContent(Prompt.inputString(String.format(
@@ -55,11 +57,10 @@ public class ProjectUpdateCommand implements Command {
         }
       }
 
-
+      // 프로젝트에 참여할 회원 정보를 담는다.
       List<Member> members = new ArrayList<>();
       while (true) {
         String name = Prompt.inputString("팀원?(완료: 빈 문자열) ");
-
         if (name.length() == 0) {
           break;
         } else {
@@ -78,8 +79,9 @@ public class ProjectUpdateCommand implements Command {
         System.out.println("프로젝트 변경을 취소하였습니다.");
         return;
       }
-      if(projectDao.update(project) == 0) {
-        System.out.println("해당번호의 프로젝트가 없습니다.");
+
+      if (projectDao.update(project) == 0) {
+        System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
       } else {
         System.out.println("프로젝트를 변경하였습니다.");
       }

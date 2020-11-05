@@ -1,5 +1,6 @@
 package com.eomcs.pms.handler;
 
+import java.util.Map;
 import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.util.Prompt;
 
@@ -12,7 +13,7 @@ public class BoardDeleteCommand implements Command {
   }
 
   @Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[게시물 삭제]");
     int no = Prompt.inputInt("번호? ");
 
@@ -22,15 +23,13 @@ public class BoardDeleteCommand implements Command {
       return;
     }
 
-    try
-    {
+    try {
       int count = boardDao.delete(no);
       if (count == 0) {
         System.out.println("해당 번호의 게시물이 존재하지 않습니다.");
       } else {
-        System.out.println("회원을 삭제하였습니다.");
+        System.out.println("게시글을 삭제하였습니다.");
       }
-
     } catch (Exception e) {
       System.out.println("게시글 삭제 중 오류 발생!");
       e.printStackTrace();

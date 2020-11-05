@@ -1,10 +1,12 @@
 package com.eomcs.pms.handler;
 
+import java.util.Map;
 import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.util.Prompt;
 
 public class BoardUpdateCommand implements Command {
+
   BoardDao boardDao;
 
   public BoardUpdateCommand(BoardDao boardDao) {
@@ -12,13 +14,12 @@ public class BoardUpdateCommand implements Command {
   }
 
   @Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[게시물 변경]");
     int no = Prompt.inputInt("번호? ");
 
     try {
       Board board = boardDao.findByNo(no);
-
       if (board == null) {
         System.out.println("해당 번호의 게시물이 존재하지 않습니다.");
         return;
@@ -34,7 +35,6 @@ public class BoardUpdateCommand implements Command {
         System.out.println("게시글 변경을 취소하였습니다.");
         return;
       }
-
 
       if (boardDao.update(board) != 0) {
         System.out.println("게시글을 변경하였습니다.");
