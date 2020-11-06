@@ -1,4 +1,4 @@
-package com.eomcs.pms.mariadb;
+package com.eomcs.pms.dao.mariadb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,13 +8,14 @@ import java.util.List;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Task;
 
-public class TaskDaoImpl  implements com.eomcs.pms.dao.TaskDao{
+public class TaskDaoImpl implements com.eomcs.pms.dao.TaskDao {
 
   Connection con;
 
-  public TaskDaoImpl (Connection con) {
+  public TaskDaoImpl(Connection con) {
     this.con = con;
   }
+
   @Override
   public int insert(Task task) throws Exception {
     try (PreparedStatement stmt = con.prepareStatement(

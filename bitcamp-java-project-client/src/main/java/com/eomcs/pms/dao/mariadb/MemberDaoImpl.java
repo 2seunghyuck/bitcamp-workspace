@@ -1,4 +1,4 @@
-package com.eomcs.pms.mariadb;
+package com.eomcs.pms.dao.mariadb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,15 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.pms.domain.Member;
 
-public class MemberDaoImpl  implements com.eomcs.pms.dao.MemberDao {
+public class MemberDaoImpl implements com.eomcs.pms.dao.MemberDao {
 
   Connection con;
 
-  public MemberDaoImpl (Connection con) {
+  public MemberDaoImpl(Connection con) {
     this.con = con;
   }
+
   @Override
-  public int insert(Member member) throws Exception{
+  public int insert(Member member) throws Exception {
     try (PreparedStatement stmt = con.prepareStatement(
         "insert into pms_member(name,email,password,photo,tel)"
             + " values(?,?,password(?),?,?)")) {
@@ -155,10 +156,11 @@ public class MemberDaoImpl  implements com.eomcs.pms.dao.MemberDao {
       return members;
     }
   }
+
   @Override
   public Member findByEmailPassword(String email, String password) throws Exception {
     try (PreparedStatement stmt = con.prepareStatement(
-        "select no, name, password, email, photo, tel, cdt"
+        "select no, name, email, photo, tel, cdt"
             + " from pms_member"
             + " where email = ? and password = password(?)")) {
 
