@@ -73,6 +73,7 @@ public class App {
 
     notifyApplicationContextListenerOnServiceStarted();
 
+    // 필터 관리자 준비
     CommandFilterManager filterManager = new CommandFilterManager();
 
     // 필터를 등록한다.

@@ -38,7 +38,6 @@ public class MemberDaoImpl implements com.eomcs.pms.dao.MemberDao {
   @Override
   public Member findByName(String name) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
-      // selectList <- 결과값이 여러개 나올때 selectOne 쓰면 에러가 발생
       List<Member> members = sqlSession.selectList("MemberDao.findByName", name);
       if (members.size() > 0) {
         return members.get(0);
@@ -71,7 +70,6 @@ public class MemberDaoImpl implements com.eomcs.pms.dao.MemberDao {
 
   @Override
   public Member findByEmailPassword(String email, String password) throws Exception {
-    // email, password 둘을찾음 <- map 에 담음. mapper 에서도 map을호출
     HashMap<String,Object> map = new HashMap<>();
     map.put("email", email);
     map.put("password", password);

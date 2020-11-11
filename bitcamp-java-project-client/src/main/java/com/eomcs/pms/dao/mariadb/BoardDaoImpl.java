@@ -5,9 +5,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.pms.domain.Board;
 
-// mybatis 적용
-// sqlSessionFactory 를 자체적으로 생성하지 않고
-// 생성자를 통해 외부에서 주입받는다.
+// Mybatis 적용
+// => SqlSessionFactory를 자체적으로 생성하지 않고
+//    생성자를 통해 외부에서 주입 받는다.(Dependency Injection: DI)
+//
 public class BoardDaoImpl implements com.eomcs.pms.dao.BoardDao{
 
   SqlSessionFactory sqlSessionFactory;
@@ -33,7 +34,6 @@ public class BoardDaoImpl implements com.eomcs.pms.dao.BoardDao{
   @Override
   public Board findByNo(int no) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
-
       Board board = sqlSession.selectOne("BoardDao.findByNo", no);
       sqlSession.update("BoardDao.updateViewCount", no);
       return board;
@@ -41,9 +41,9 @@ public class BoardDaoImpl implements com.eomcs.pms.dao.BoardDao{
   }
 
   @Override
-  public List<Board> findAll() throws Exception {
+  public List<Board> findAll(String keyword) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      return sqlSession.selectList("BoardDao.findAll");
+      return sqlSession.selectList("BoardDao.findAll",keyword);
     }
   }
 
