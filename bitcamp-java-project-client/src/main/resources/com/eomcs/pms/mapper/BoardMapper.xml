@@ -29,7 +29,7 @@
     from 
       pms_board b 
       inner join pms_member m on b.writer=m.no
-    <if test="keyword !=null">
+    <if test="keyword != null">
     where 
       b.title like #{keyword}
       or b.content like #{keyword}
