@@ -1,29 +1,40 @@
 package com.eomcs.pms.handler;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.GenericServlet;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
 import com.eomcs.pms.service.BoardService;
 import com.eomcs.util.Prompt;
-@CommandAnno("/board/delete")
-public class BoardDeleteCommand implements Command {
+@WebServlet("/board/delete")
+public class BoardDeleteCommand extends GenericServlet {
 
-  BoardService boardService;
-
-  public BoardDeleteCommand(BoardService boardService) {
-    this.boardService = boardService;
-  }
+  /**
+   *
+   */
+  private static final long serialVersionUID = 1L;
 
   @Override
-  public void execute(Request request) {
-    PrintWriter out = request.getWriter();
+  public void service(ServletRequest request, ServletResponse response)
+      throws ServletException, IOException {
+
+    ServletContext ctx = request.getServletContext();
+    BoardService boardService = (BoardService) ctx.getAttribute("boardService");
+
+    PrintWriter out = response.getWriter();
     BufferedReader in = request.getReader();
 
     try {
       out.println("[게시물 삭제]");
       int no = Prompt.inputInt("번호? ", out, in);
 
-      String response = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ", out, in);
-      if (!response.equalsIgnoreCase("y")) {
+      String responseText = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ", out, in);
+      if (!responseText.equalsIgnoreCase("y")) {
         out.println("게시글 삭제를 취소하였습니다.");
         return;
       }
