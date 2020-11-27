@@ -6,6 +6,7 @@ import java.util.List;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.pms.service.BoardService;
 import com.eomcs.util.Prompt;
+
 @CommandAnno("/board/search")
 public class BoardSearchCommand implements Command {
 

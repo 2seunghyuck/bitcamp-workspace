@@ -9,13 +9,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 
-// Command 규칙에 따라 클래스를 정의한다.
 @WebServlet("/hello")
 public class HelloCommand implements Servlet {
 
   @Override
   public void service(ServletRequest request, ServletResponse response)
       throws ServletException, IOException {
+
     response.setContentType("text/plain;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("안녕하세요!");
@@ -44,5 +44,6 @@ public class HelloCommand implements Servlet {
     // TODO Auto-generated method stub
 
   }
+
 
 }
