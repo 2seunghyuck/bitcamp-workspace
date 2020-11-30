@@ -73,27 +73,41 @@ public class Servlet08 extends GenericServlet {
     // .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
 
     Thumbnails.of(this.uploadDir + "/" + filename)//
-        .size(20, 20)//
-        .outputFormat("jpg")//
-        .toFiles(new Rename() {
-          @Override
-          public String apply(String name, ThumbnailParameter param) {
-            return name + "_20x20";
-          }
-        });
+    .size(20, 20)//
+    .outputFormat("jpg")//
+    .toFiles(new Rename() {
+      @Override
+      public String apply(String name, ThumbnailParameter param) {
+        return name + "_20x20";
+      }
+    });
 
     Thumbnails.of(this.uploadDir + "/" + filename)//
-        .size(80, 80)//
-        .outputFormat("jpg") //
-        .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+    .size(80, 80)//
+    .outputFormat("jpg") //
+    //.toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+    .toFiles(new Rename() {
+      @Override
+      public String apply(String name, ThumbnailParameter param) {
+        return name + "_80x80";
+      }
+    });
 
     Thumbnails.of(this.uploadDir + "/" + filename)//
-        .size(160, 160) //
-        .outputFormat("jpg") //
-        .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+    .size(160, 160) //
+    .outputFormat("jpg") //
+    //.toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+    .toFiles(new Rename() {
+      @Override
+      public String apply(String name, ThumbnailParameter param) {
+        return name + "_160x160";
+      }
+    });
 
     out.printf("사진=%s<br>\n", filename);
     out.printf("<img src='../upload/%s_20x20.jpg'><br>\n", filename);
+    out.printf("<img src='../upload/%s_80x80.jpg'><br>\n", filename);
+    out.printf("<img src='../upload/%s_160x160.jpg'><br>\n", filename);
     out.printf("<img src='../upload/%s' height='80'><br>\n", filename);
     out.printf("<img src='../upload/%s'><br>\n", filename);
     out.println("</body></html>");
