@@ -1,44 +1,36 @@
 package com.eomcs.pms.web;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
+import java.io.IOException;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import com.eomcs.pms.service.ProjectService;
-import com.eomcs.util.Prompt;
 
-@CommandAnno("/project/delete")
-public class ProjectDeleteServlet implements Command {
-
-  ProjectService projectService;
-
-  public ProjectDeleteServlet(ProjectService projectService) {
-    this.projectService = projectService;
-  }
+@WebServlet("/project/delete")
+public class ProjectDeleteServlet extends HttpServlet {
+  private static final long serialVersionUID = 1L;
 
   @Override
-  public void execute(Request request) {
-    PrintWriter out = request.getWriter();
-    BufferedReader in = request.getReader();
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+
+    ServletContext ctx = request.getServletContext();
+    ProjectService projectService = (ProjectService) ctx.getAttribute("projectService");
 
     try {
-      out.println("[프로젝트 삭제]");
-      int no = Prompt.inputInt("번호? ", out, in);
-
-      String response = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ", out, in);
-      if (!response.equalsIgnoreCase("y")) {
-        out.println("프로젝트 삭제를 취소하였습니다.");
-        return;
-      }
+      int no = Integer.parseInt(request.getParameter("no"));
 
       if (projectService.delete(no) == 0) {
-        out.println("해당 번호의 프로젝트가 없습니다.");
-        return;
+        throw new Exception("해당 프로젝트가 없습니다.");
       }
-
-      out.println("프로젝트를 삭제하였습니다.");
+      response.sendRedirect("list");
 
     } catch (Exception e) {
-      out.printf("작업 처리 중 오류 발생! - %s\n", e.getMessage());
-      e.printStackTrace();
+      request.setAttribute("exception", e);
+      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }
