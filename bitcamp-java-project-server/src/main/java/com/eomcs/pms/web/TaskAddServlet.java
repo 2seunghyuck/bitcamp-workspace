@@ -33,11 +33,10 @@ public class TaskAddServlet extends HttpServlet {
       Project project = projectService.get(
           Integer.parseInt(request.getParameter("projectNo")));
       request.setAttribute("project", project);
-      request.getRequestDispatcher("/task/form.jsp").include(request, response);
+      request.setAttribute("viewName", "/task/form.jsp");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 
@@ -60,13 +59,11 @@ public class TaskAddServlet extends HttpServlet {
           );
 
       taskService.add(task);
-
-      response.sendRedirect("../project/detail?no=" +
+      request.setAttribute("redirect", "../project/detail?no=" +
           request.getParameter("projectNo"));
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }

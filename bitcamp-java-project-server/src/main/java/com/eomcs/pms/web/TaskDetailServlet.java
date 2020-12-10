@@ -32,11 +32,10 @@ public class TaskDetailServlet extends HttpServlet {
       }
       request.setAttribute("task", task);
       request.setAttribute("project", projectService.get(task.getProjectNo()));
-      request.getRequestDispatcher("/task/detail.jsp").include(request, response);
+      request.setAttribute("viewName", "/task/detail.jsp");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }

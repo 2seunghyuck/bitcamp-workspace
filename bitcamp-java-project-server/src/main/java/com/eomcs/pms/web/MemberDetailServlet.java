@@ -30,11 +30,10 @@ public class MemberDetailServlet extends HttpServlet {
         throw new Exception("해당 회원이 없습니다!");
       }
       request.setAttribute("member", member);
-      request.getRequestDispatcher("/member/detail.jsp").include(request, response);
+      request.setAttribute("viewName", "/member/detail.jsp");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }

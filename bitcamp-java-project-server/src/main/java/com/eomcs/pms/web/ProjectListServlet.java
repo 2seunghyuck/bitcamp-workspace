@@ -50,11 +50,10 @@ public class ProjectListServlet extends HttpServlet {
       }
 
       request.setAttribute("list", list);
-      request.getRequestDispatcher("/project/list.jsp").include(request, response);
+      request.setAttribute("viewName", "/project/list.jsp");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }

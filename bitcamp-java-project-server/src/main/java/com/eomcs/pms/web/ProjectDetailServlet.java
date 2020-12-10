@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.pms.service.MemberService;
 import com.eomcs.pms.service.ProjectService;
+import com.eomcs.pms.service.TaskService;
 
 @WebServlet("/project/detail")
 public class ProjectDetailServlet extends HttpServlet {
@@ -22,6 +23,7 @@ public class ProjectDetailServlet extends HttpServlet {
     ServletContext ctx = request.getServletContext();
     ProjectService projectService = (ProjectService) ctx.getAttribute("projectService");
     MemberService memberService = (MemberService) ctx.getAttribute("memberService");
+    TaskService taskService = (TaskService) ctx.getAttribute("taskService");
 
     response.setContentType("text/html;charset=UTF-8");
 
@@ -34,11 +36,11 @@ public class ProjectDetailServlet extends HttpServlet {
 
       request.setAttribute("project", project);
       request.setAttribute("members", memberService.list());
-      request.getRequestDispatcher("/project/detail.jsp").include(request, response);
+      request.setAttribute("tasks", taskService.listByProject(no));
+      request.setAttribute("viewName", "/project/detail.jsp");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }

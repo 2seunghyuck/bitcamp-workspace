@@ -27,10 +27,10 @@ public class MemberListServlet extends HttpServlet {
     try {
       List<Member> list = memberService.list();
       request.setAttribute("list", list);
-      request.getRequestDispatcher("/member/list.jsp").include(request, response);
+      request.setAttribute("viewName", "/member/list.jsp");
+
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }

@@ -50,11 +50,10 @@ public class MemberUpdatePhotoServlet extends HttpServlet {
         throw new Exception("사진을 선택하지 않았습니다.");
       }
       memberService.update(member);
-      response.sendRedirect("detail?no=" + member.getNo());
+      request.setAttribute("redirect", "detail?no=" + member.getNo());
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 

@@ -47,12 +47,10 @@ public class ProjectUpdateServlet extends HttpServlet {
       if (projectService.update(project) == 0) {
         throw new Exception("해당 프로젝트가 존재하지 않습니다.");
       }
-
-      response.sendRedirect("list");
+      request.setAttribute("redirect","list");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }
