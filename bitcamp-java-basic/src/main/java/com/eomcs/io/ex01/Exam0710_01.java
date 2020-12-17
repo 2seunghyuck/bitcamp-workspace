@@ -7,14 +7,24 @@ public class Exam0710_01 {
 
   public static void main(String[] args) throws Exception {
 
-    // 1) 현재 디렉토리의 파일 및 디렉토리 이름 출력
-
+    // 결과 예)
+    // /Users/bitcamp/git/test
+    // src/
+    //   main/
+    //     java/
+    //       com/
+    //         Hello.java
+    //         Hello2.java
+    // build.gradle
+    // settings.gradle
+    // Hello.java
+    // ...
+    
     File dir = new File(".");
-    File[] files = dir.listFiles();
-
-    for(File file : files) {
-      System.out.println(file.getName());
-    }
-
+    System.out.println(dir.getCanonicalPath());
   }
+
+
 }
+
+

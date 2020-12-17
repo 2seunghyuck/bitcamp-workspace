@@ -33,7 +33,7 @@ import java.util.Arrays;
 //19) 배열의 특정 항목을 삭제할 때 배열 복사 기능을 이용하여 처리한다.
 //20) ArrayList에 보관되어 있는 인스턴스 목록을 배열로 리턴하는 toArray() 메서드를 추가한다.
 //21) toArray()에서 배열을 복사할 때 Arrays.copyOf() 메서드를 활용해보자.
-//22) 제네릭 적용
+//22) 제네릭을 적용한다.
 //23) 파라미터로 받은 배열에 값을 채워주는 toArray(E[]) 메서드를 추가한다.
 public class MyArrayList23<E> {
 
@@ -148,12 +148,9 @@ public class MyArrayList23<E> {
     return arr;
      */
   }
-  
-  @SuppressWarnings("unchecked")
+
   public E[] toArray(E[] arr) {
-    for (int i = 0; i < this.size; i++) {
-      arr[i] = (E) this.elementData[i];
-    }
+    System.arraycopy(this.elementData, 0, arr, 0, this.size);
     return arr;
   }
 }

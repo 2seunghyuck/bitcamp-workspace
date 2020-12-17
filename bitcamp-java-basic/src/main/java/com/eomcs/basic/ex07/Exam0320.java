@@ -1,29 +1,73 @@
+// HashSet과 사용자 정의 데이터 타입 - equals()만 오버라이딩
 package com.eomcs.basic.ex07;
 
+import java.util.HashSet;
+
 public class Exam0320 {
-  static class Myobject {
-    int a;
-    int b;
+
+  // 사용자 정의 데이터 타입
+  static class Member {
+    String name;
+    int age;
+
+    public Member(String name, int age) {
+      this.name = name;
+      this.age = age;
+    }
+
+    @Override
+    public String toString() {
+      return "Member [name=" + name + ", age=" + age + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (this == obj)
+        return true;
+      if (obj == null)
+        return false;
+      if (getClass() != obj.getClass())
+        return false;
+      Member other = (Member) obj;
+      if (age != other.age)
+        return false;
+      if (name == null) {
+        if (other.name != null)
+          return false;
+      } else if (!name.equals(other.name))
+        return false;
+      return true;
+    }
+
+
   }
+
   public static void main(String[] args) {
-    Myobject ref = new Myobject();
+    Member v1 = new Member("홍길동", 20);
+    Member v2 = new Member("임꺽정", 30);
+    Member v3 = new Member("유관순", 16);
+    Member v4 = new Member("안중근", 20);
+    Member v5 = new Member("유관순", 16);
 
-    ref.a = 100;
-    ref.b = 200;
-    swap(ref);
-    System.out.printf("main() => a=%d b=%d\n", ref.a, ref.b);
+    System.out.printf("equals(): %b\n", v3.equals(v5));
+    System.out.println("-----------------------------------");
+
+    HashSet set = new HashSet();
+    set.add(v1);
+    set.add(v2);
+    set.add(v3);
+    set.add(v4);
+    set.add(v5);
+
+    print(set);
   }
 
-  static void swap(Myobject re) {
-    Myobject ref = new Myobject();
-    ref.a = 0;
-    ref.b = 100;
-
-    System.out.printf("swap() => a=%d b=%d\n", ref.a, ref.b);
-    int tmp = re.a;
-    re.a = re.b;
-    re.b = tmp;
-    System.out.printf("swap() => a=%d b=%d\n", re.a, re.b);
+  static void print(HashSet set) {
+    Object[] values = set.toArray();
+    for (Object value : values) {
+      System.out.println(value);
+    }
   }
 }
-// 정수값이 아닌 새로운 class 지정으로 레퍼런스를 넘겨준다면 다른 메서드에서도 사용가능하다.
+
+

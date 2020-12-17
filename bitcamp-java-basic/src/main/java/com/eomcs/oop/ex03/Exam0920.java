@@ -1,12 +1,17 @@
+// 종합 정리 - 인스턴스 필드 초기화(variable initializer) 적용
 package com.eomcs.oop.ex03;
 
 public class Exam0920 {
+
   static class Monitor {
 
-    int bright = 50;
-    int contrast = 50;
-    int widthRes = 50;
-    int heightRes = 50;
+    // 초기화 문장?
+    // 변수를 선언할 때 값을 설정하는 것을 초기화 문장이라 부른다.
+    //
+    int bright = 50; // 밝기 (0% ~ 100%)
+    int contrast = 50; // 명암 (0% ~ 100%)
+    int widthRes = 1920; // 해상도 너비
+    int heightRes = 1080; // 해상도 높이
 
     void display() {
       System.out.println("----------------------------------");
@@ -16,21 +21,19 @@ public class Exam0920 {
       System.out.println("----------------------------------");
     }
   }
+
   public static void main(String[] args) {
-
+    // 모니터 인스턴스 생성
     Monitor m1 = new Monitor();
-    m1.display();
-    // 인스턴스 변수는 자동으로 0으로 초기화 되어 있음
 
-    /*
-    m1.bright = 50;
-    m1.contrast = 50;
-    m1.heightRes = 50;
-    m1.widthRes = 50;
+    // 인스턴스 필드의 값이 유효한 기본 값들로 미리 초기화 되었기 때문에 바로 사용할 수 있다.
     m1.display();
-    번거롭지 않게 기본값을 클래스안에서 초기화 한다.
-    */
-    m1.bright = 40; // 물론 변수를 바꿀 수 있다.
+
+    // 물론 특정 속성의 값을 바꾼 후에 사용해도 된다.
+    m1.bright = 40;
+
     m1.display();
   }
 }
+
+

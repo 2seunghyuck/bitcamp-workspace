@@ -4,11 +4,11 @@ public class MyLinkedListTest2 {
   public static void main(String[] args) {
     MyLinkedList<String> list = new MyLinkedList<>();
 
-    list.add("aaa");
-    list.add("bbb");
-    list.add("ccc");
-    list.add("ddd");
-    //list.add(new Integer(100)); // 컴파일 오류!
+    list.add("aaa"); // aaa
+    list.add("bbb"); // aaa, bbb
+    list.add("ccc"); // aaa, bbb, ccc
+    list.add("ddd"); // aaa, bbb, ccc, ddd
+    //list.add(Integer.valueOf(100)); // 컴파일 오류!
 
     System.out.println(list.get(0));
     System.out.println(list.get(1));
@@ -44,10 +44,10 @@ public class MyLinkedListTest2 {
     System.out.println(list.set(1, "xxx")); // aaa, xxx, eee, ddd, ggg
     print(list);
 
-    System.out.println(list.set(0, "yyy")); // aaa, xxx, eee, ddd, ggg
+    System.out.println(list.set(0, "yyy")); // yyy, xxx, eee, ddd, ggg
     print(list);
 
-    System.out.println(list.set(4, "zzz")); // aaa, xxx, eee, ddd, ggg
+    System.out.println(list.set(4, "zzz")); // aaa, xxx, eee, ddd, zzz
     print(list);
 
     System.out.println("---------------------");

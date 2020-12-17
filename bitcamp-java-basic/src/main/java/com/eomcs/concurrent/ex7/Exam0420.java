@@ -39,8 +39,7 @@ public class Exam0420 {
     executorService.execute(new MyRunnable(6000));
     executorService.execute(new MyRunnable(7000));
 
-
-    // 현재 수행 중인 작업들을 모두 즉시 멈추도록 지시한다.
+    // 현재 수행 중인 작업들을 모두 멈추도록 지시한다.
     // => 대기 중인 작업들은 취소한다.
     // => 그리고 취소한 작업 목록을 리턴해준다.
     List<Runnable> tasks = executorService.shutdownNow();
@@ -51,6 +50,11 @@ public class Exam0420 {
     // => 예외 발생!
     executorService.execute(new MyRunnable(4000));
 
+    // shutdown() vs shutdownNow();
+    // - shutdown()
+    //   진행 중인 작업을 완료하고 대기 중인 작업도 완료한 다음 종료.
+    // - shutdownNow()
+    //   진행 중인 작업을 즉시 종료하고, 대기 중인 작업 목록은 리턴한다.
     System.out.println("main() 종료!");
   }
 }

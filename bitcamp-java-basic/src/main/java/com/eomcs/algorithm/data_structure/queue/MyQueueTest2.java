@@ -1,23 +1,24 @@
 package com.eomcs.algorithm.data_structure.queue;
 
 public class MyQueueTest2 {
-  public static void main(String[] args) throws Exception{
+  public static void main(String[] args) throws Exception {
     MyQueue queue = new MyQueue();
     queue.offer("aaa");
     queue.offer("bbb");
     queue.offer("ccc");
-    System.out.println("==> " + queue.peek()); // aaa
     queue.offer("ddd");
     queue.offer("eee");
     print(queue);
-
+    System.out.println("--------------------------");
 
     MyQueue queue2 = queue.clone();
+    queue2.poll();
+    queue2.poll();
     print(queue2);
-    System.out.println(queue.poll());
-    System.out.println(queue.poll());
-    System.out.println(queue.poll());
-    System.out.println(queue.poll());
+    System.out.println("--------------------------");
+
+    print(queue);
+    System.out.println("--------------------------");
   }
 
   static void print(MyQueue queue) {

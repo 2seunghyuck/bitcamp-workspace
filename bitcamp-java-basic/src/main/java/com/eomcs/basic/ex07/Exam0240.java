@@ -1,16 +1,29 @@
+// Iterator 의 사용
 package com.eomcs.basic.ex07;
 
-// 메서드 parameter, argument를 호출할땐 항상 같은 단위의 변수를 대응시켜야한다.
+import java.util.Iterator;
+import java.util.concurrent.ArrayBlockingQueue;
+
 public class Exam0240 {
   public static void main(String[] args) {
-// 메서드를 배열처럼 사용하는법 => 가변 파라미터
-// 물론 배열을 직접입력해도 된다.
-    m4("홍길동","임꺽정","안중근");
-    m4(new String[] {"홍길동","임꺽정","안중근"});
-  }
-  static void m4(String...names) {
-    for (int i = 0; i < names.length; i++) {
-      System.out.printf("%s 님 안녕하세요\n", names[i]);
+    String s1 = new String("aaa");
+    String s2 = new String("bbb");
+    String s3 = new String("ccc");
+    String s4 = new String("ddd");
+    String s5 = new String("eee");
+
+    ArrayBlockingQueue queue = new ArrayBlockingQueue(100);
+    queue.offer(s1);
+    queue.offer(s2);
+    queue.offer(s3);
+    queue.offer(s4);
+    queue.offer(s5);
+
+    Iterator 컬렉션에서값을꺼내주는객체 = queue.iterator();
+    while (컬렉션에서값을꺼내주는객체.hasNext()) {
+      System.out.print(컬렉션에서값을꺼내주는객체.next() + ", ");
     }
+    System.out.println();
+
   }
 }

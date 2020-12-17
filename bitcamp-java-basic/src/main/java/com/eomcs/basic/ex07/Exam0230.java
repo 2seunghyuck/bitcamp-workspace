@@ -1,13 +1,29 @@
+// Iterator 의 사용
 package com.eomcs.basic.ex07;
 
-// 메서드 parameter, argument를 호출할땐 항상 같은 단위의 변수를 대응시켜야한다.
+import java.util.Iterator;
+import java.util.Stack;
+
 public class Exam0230 {
   public static void main(String[] args) {
-  System.out.println(m3("홍길동", 88));
-  }
-// 메인메서드에서 입력받은 아규먼트를 파라미터에 적용하여 출력
-  static String m3(String name, int age) {
+    String s1 = new String("aaa");
+    String s2 = new String("bbb");
+    String s3 = new String("ccc");
+    String s4 = new String("ddd");
+    String s5 = new String("eee");
 
-    return String.format("%d살 %s님을 환영합니다!", age, name);
+    Stack stack = new Stack();
+    stack.push(s1);
+    stack.push(s2);
+    stack.push(s3);
+    stack.push(s4);
+    stack.push(s5);
+
+    Iterator 컬렉션에서값을꺼내주는객체 = stack.iterator();
+    while (컬렉션에서값을꺼내주는객체.hasNext()) {
+      System.out.print(컬렉션에서값을꺼내주는객체.next() + ", ");
+    }
+    System.out.println();
+
   }
 }

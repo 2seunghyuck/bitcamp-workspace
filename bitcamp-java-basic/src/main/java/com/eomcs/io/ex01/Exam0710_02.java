@@ -7,19 +7,28 @@ public class Exam0710_02 {
 
   public static void main(String[] args) throws Exception {
 
-    // 1) 현재 디렉토리의 파일 및 디렉토리 이름 출력
-    // 2) 디렉토리 안의 목록을 출력하는 코드를 별도의 메서드로 분리한다.
-
+    // 결과 예)
+    // /Users/bitcamp/git/test
+    // src/
+    //   main/
+    //     java/
+    //       com/
+    //         Hello.java
+    //         Hello2.java
+    // build.gradle
+    // settings.gradle
+    // Hello.java
+    // ...
+    
     File dir = new File(".");
-    printFiles(dir);
+    System.out.println(dir.getCanonicalPath());
+    
+    printList(dir);
   }
 
-  static void printFiles(File dir) {
-
-    File[] files = dir.listFiles();
-
-    for(File file : files) {
-      System.out.println(file.getName());
-    }
+  static void printList(File dir) {
+    
   }
 }
+
+

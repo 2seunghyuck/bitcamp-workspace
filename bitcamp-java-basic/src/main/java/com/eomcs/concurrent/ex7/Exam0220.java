@@ -30,7 +30,7 @@ public class Exam0220 {
   }
   public static void main(String[] args) throws Exception {
 
-    // 스레드의 수를 고정하지 않고 필요할 때마다 스레드를 생성하는 스레드풀(Cached)이다.
+    // 스레드의 수를 고정하지 않고 필요할 때마다 스레드를 생성하는 스레드풀이다.
     // 물론 작업을 끝낸 스레드는 다시 사용할 수 있도록 pool에 보관한다.
     ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -51,7 +51,6 @@ public class Exam0220 {
     executorService.execute(new MyRunnable(4000));
 
     System.out.println("main() 종료!");
-    executorService.shutdown();
   }
 }
 

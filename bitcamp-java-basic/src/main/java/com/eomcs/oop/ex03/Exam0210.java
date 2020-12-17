@@ -1,65 +1,63 @@
+// 인스턴스 메서드와 클래스 메서드
+//
 package com.eomcs.oop.ex03;
 
 public class Exam0210 {
-
   static class A {
-
-    static int v1; // static field = class field = 스태틱 변수
-    int v2; // instance field = non-static field = 인스턴스 변수
-
-    // static method = class method
+    //1) 클래스 메서드 
+    //   => static 붙은 메서드이다.
+    //   => 클래스 이름으로 호출할 수 있다.
+    //   => "스태틱 메서드"라고도 부른다.
     static void m1() {
       System.out.println("m1()");
-      A.v1 = 100;
-      v1 =200; // A.같은 스태틱 멤버이기때문에 생략 가능
-
-      //static method 는 this라는 내장변수가 없다.
-      // this를 사용하여 접근하는 인스턴스 멤버(필드,메서드)를 사용할 수 없다.
-      // -static method 에서 사용불가-
-      // this.v2 = 200;
-      // this.m2();
     }
 
-    // non-static method = instance method
+    //2) 인스턴스 메서드 
+    //   => static 이 붙지 않은 메서드이다.
+    //   => 인스턴스 주소가 있어야만 호출할 수 있다.
     void m2() {
       System.out.println("m2()");
-
-      // 인스턴스 필드에 접근하려면 , 메서드 내장변수인 this 를 사용하라.
-      // this는 메서드가 호출될 때 외부로부터 받은 인스턴스 주소를 갖고있다.
-      //
-      this.v2 = 300;
-      v2 = 300; // <<-- 생략가능(this)
-
-      // 스태틱필드는 인스턴스 레퍼런스를 통해 접근할 수 있다.
-      // 그러나 하지마라.헷갈린다
-      this.v1 = 100; // ==> A.v1 = 100;으로 바꾼다.
-      v1 = 200; // => this 생략 가능 결국 A.v1 = 200 이됨
-      A.v1 = 200; // <=== 걍 이렇게 써라
-
-      m1();
-      // 인스턴스 메서드는 인스턴스 멤버(field, method) 뿐만아니라
-      // 클래스 멤버(field,method)도 사용할 수 있다.
-    }
-    int abs(int value) {
-      if (value < 0) {
-        return -value;
-      } else {
-        return value;
-      }
     }
   }
 
   public static void main(String[] args) {
+    // 클래스 메서드 호출
+    // 문법) 클래스명.메서드명();
+    A.m1(); // OK!
 
-    A.m1();
-    //A.m2();
+    // => 인스턴스 메서드는 클래스 이름으로 호출할 수 없다.
+    //A.m2(); // 컴파일 오류!
 
-    //non-static method <= 인스턴스 있어야만 호출가능
     A obj1 = new A();
-    obj1.m2();
-    System.out.println(obj1.abs(100));
-    System.out.println(obj1.abs(-100));
-    System.out.println(Math.abs(100));
-    //굳이 이럴필요 없으니 , static 붙여서 그냥 클래스 이름으로 써라
+
+    obj1.m1(); // OK! 그런데, 이렇게 하지 말라!
+    // 물론 "클래스 메서드"를 인스턴스 주소를 사용하여 호출할 수 있지만,
+    // 다른 개발자가 그냥 "인스턴스 메서드"인 줄 착각할 수 있기 때문에
+    // 이렇게 호출하지 말기를 권고한다!
+    obj1.m2(); // OK! 인스턴스 메서드는 반드시 인스턴스 주소를 사용하여 호출해야 한다.
+
+    A obj2 = null;
+    obj2.m2(); // 컴파일은 OK! 실행은 오류!
+    // 왜? obj2 변수에 들어 있는 인스턴스 주소가 무효하기 때문이다.
   }
 }
+
+// 결론!
+// 클래스 메서드(=스태틱 메서드)
+// => 인스턴스 변수를 사용하지 않을 경우 클래스 메서드로 선언하라!
+// 인스턴스 메서드
+// => 인스턴스 변수를 사용할 경우 인스턴스 메서드로 선언하라!
+//
+// 실무
+// => 일단 인스턴스 메서드로 무조건 만들라!
+// => 인스턴스 변수를 완전히 사용하지 않음을 확신하면 
+//    그 때 클래스 메서드로 전환하라!
+//
+
+
+
+
+
+
+
+

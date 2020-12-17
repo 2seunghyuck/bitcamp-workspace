@@ -18,7 +18,7 @@ import java.lang.reflect.Array;
 //
 // 테스트2: MyLinkedListTest2
 // 11) 제네릭을 적용한다.
-//
+// 
 // 테스트3: MyLinkedListTest3
 // 12) 파라미터로 받은 배열에 값을 채워주는 toArray(E[]) 메서드를 추가한다.
 //
@@ -48,7 +48,6 @@ public class MyLinkedList12<E> {
       this.value = value;
     }
   }
-
 
   public boolean add(E e) {
     Node<E> node = new Node<>();
@@ -172,7 +171,8 @@ public class MyLinkedList12<E> {
 
   @SuppressWarnings("unchecked")
   public E[] toArray(E[] arr) {
-    if (arr.length < this.size()) {
+
+    if (arr.length < size) {
       // => 다음과 같이 배열의 타입을 엄격히 형변환 해도 된다.
       //Class<E[]> arrayClassInfo = (Class<E[]>)arr.getClass();
       //Class<E> arrayItemClassInfo = (Class<E>)arrayClassInfo.getComponentType();
@@ -187,10 +187,12 @@ public class MyLinkedList12<E> {
       //arr = (E[]) Array.newInstance(arr.getClass().getComponentType(), this.size());
     }
 
-    Object[] originArr = this.toArray();
-    for (int i = 0; i < this.size(); i++) {
-      arr[i] = (E) originArr[i];
+    Node<E> cursor = first;
+    for (int i = 0; i < size; i++) {
+      arr[i] = cursor.value;
+      cursor = cursor.next;
     }
+
     return arr;
   }
 }

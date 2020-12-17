@@ -1,60 +1,59 @@
 package com.eomcs.oop.ex02;
 
-// # 관련된 기능(메서드)을 묶어 분류하기 : 분류 전
+// # 관련된 기능(메서드)을 묶어 분류하기 - 클래스로 분류
 //
 public class Exam0220 {
 
+  // 계산 기능과 관련된 메서드를 별도의 블록으로 분리할 때 사용하는 문법이 "클래스"이다.
   static class Calculator {
-    static int result = 0;
-
-    static void plus(int value) {
-      result += value;
+    static int plus(int a, int b) {
+      return a + b;
     }
 
-    static void minus(int value) {
-      result -= value;
+    static int minus(int a, int b) {
+      return a - b;
     }
 
-    static void multiple(int value) {
-      result *= value;
+    static int multiple(int a, int b) {
+      return a * b;
     }
 
-    static void divide(int value) {
-      result /= value;
+    static int divide(int a, int b) {
+      return a / b;
     }
 
-    static void printResult(int value) {
-      System.out.println("**********************");
-      System.out.printf("==> 결과 = %d\n", value);
-      System.out.println("**********************");
+    static int abs(int a) {
+      //
+      // if (a >= 0) 
+      //   return a; 
+      // else 
+      //   return a * -1;
+      //
+      return a >= 0 ? a : a * -1;
     }
-
   }
-
 
   public static void main(String[] args) {
+    // 다음 식을 연산자 우선 순위를 고려하지 않고 순서대로 계산하라!
+    // 2 + 3 - 1 * 7 / 3 = ?
 
-    Calculator.plus(2); // + 2
-    Calculator.plus(3); // + 2 + 3
-    Calculator.minus(1); // + 2 + 3 - 1
-    Calculator.multiple(7); // + 2 + 3 - 1 * 7
-    Calculator.divide(3); // + 2 + 3 - 1 * 7 / 3 = ?
+    // 계산 결과를 담을 변수를 준비한다.
+    int result = 0;
 
-    System.out.printf("result = %d\n", Calculator.result);
-    // 이렇게 계산을 완료한 후 다음 식을 계산해야 한다.
+    // 클래스 메서드를 호출하여 작업을 수행하고,
+    // 리턴 결과는 로컬 변수에 저장한다.
+    result = Calculator.plus(2, 3);
+    result = Calculator.minus(result, 1);
+    result = Calculator.multiple(result, 7);
+    result = Calculator.divide(result, 3);
 
-    // 식2 계산:
-    // 다른 식을 계산하기 전에 기존의 계산 결과를 갖고 있는
-    // result 변수를 0으로 초기화시켜야 한다.
-    Calculator.result = 0;
-
-    Calculator.plus(3); // + 3
-    Calculator.multiple(2); // + 3 * 2
-    Calculator.plus(7); // + 3 * 2 + 7
-    Calculator.divide(4); // + 3 * 2 + 7 / 4
-    Calculator.minus(5); // + 3 * 2 + 7 / 4 - 5 = ?
-
-    System.out.printf("result = %d\n", Calculator.result);
+    System.out.printf("result = %d\n", result);
   }
 }
+// 클래스 문법의 용도?
+// 1) 사용자 정의 데이터 타입 만들 때
+// - 즉 새로운 구조의 메모리를 설계할 때 사용한다.
+// 2) 메서드를 묶을 때
+// - 서로 관련된 기능을 관리하기 쉽게 묶고 싶을 때 사용한다.
+
 

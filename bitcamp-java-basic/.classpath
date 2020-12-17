@@ -28,6 +28,11 @@
 	</classpathentry>
 	<classpathentry kind="output" path="bin/default"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11/"/>
+	<classpathentry sourcepath="/Users/user/.gradle/caches/modules-2/files-2.1/org.mybatis/mybatis-spring/2.0.6/d169c59dec35a2a7b8b581d0b6ea763ed1fceaa5/mybatis-spring-2.0.6-sources.jar" kind="lib" path="/Users/user/.gradle/caches/modules-2/files-2.1/org.mybatis/mybatis-spring/2.0.6/eae03712acdf041a3590b816460945d4bd2691bc/mybatis-spring-2.0.6.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="/Users/user/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/5.3.2/b7c3562b076ce4f4703f5818a81407d932727e65/spring-context-5.3.2-sources.jar" kind="lib" path="/Users/user/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/5.3.2/83ff3909a582eceb5c8ae152f1e510672106f42b/spring-context-5.3.2.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>

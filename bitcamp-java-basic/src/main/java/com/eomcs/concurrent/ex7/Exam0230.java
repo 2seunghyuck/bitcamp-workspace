@@ -1,5 +1,4 @@
 // Executors 태스크 프레임워크 - 스레드풀 만들기 : 한 개의 스레드를 갖는 스레드풀
-// single thread로 작업을 수행하는 경우 ex) 예매 사이트.
 package com.eomcs.concurrent.ex7;
 
 import java.util.concurrent.ExecutorService;
@@ -42,7 +41,6 @@ public class Exam0230 {
     executorService.execute(new MyRunnable(4000));
 
     System.out.println("main() 종료!");
-    executorService.shutdown();
   }
 }
 

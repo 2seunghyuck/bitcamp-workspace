@@ -48,7 +48,7 @@ public class Customer3 {
   public void setWeight(int weight) {
     if (weight < 1 || weight > 200) {
       this.weight = 0;
-     return;
+      return;
     }
     this.weight = weight;
   }
@@ -59,7 +59,6 @@ public class Customer3 {
     if (height < 1 || height > 300) {
       this.height = 0;
       return;
-      //throw new RuntimeException("유효하지 않은 몸무게 입니다."); 실행단계에서 오류를 띄우는 방법
     }
     this.height = height;
   }

@@ -8,6 +8,8 @@ import com.eomcs.algorithm.data_structure.linkedlist.MyLinkedList;
 // 3) 스택에서 제일 마지막에 추가한 값을 꺼내는 pop() 메서드를 정의한다.
 // 4) 스택에서 제일 마지막에 입력한 값을 조회하는 peek()을 정의한다.
 // 5) 스택이 비어 있는지 알려주는 empty()를 정의한다.
+// 6) Object.clone()을 오버라이딩 : deep copy
+//
 public class MyStack06 extends MyLinkedList {
 
   public Object push(Object item) {
@@ -30,20 +32,16 @@ public class MyStack06 extends MyLinkedList {
   }
 
   public boolean empty() {
-    return this.size() == 0;
+    return size() == 0;
   }
 
-  // Stack clone 하기 [Deep copy]
   @Override
   public MyStack06 clone() throws CloneNotSupportedException {
     MyStack06 newStack = new MyStack06();
     Object[] values = this.toArray();
-    for(Object value : values) {
+    for (Object value : values) {
       newStack.push(value);
     }
     return newStack;
   }
-
 }
-
-

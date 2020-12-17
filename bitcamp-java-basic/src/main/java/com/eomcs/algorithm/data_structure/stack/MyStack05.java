@@ -30,12 +30,6 @@ public class MyStack05 extends MyLinkedList {
   }
 
   public boolean empty() {
-    return this.size() == 0;
+    return size() == 0;
   }
 }
-
-
-
-
-
-

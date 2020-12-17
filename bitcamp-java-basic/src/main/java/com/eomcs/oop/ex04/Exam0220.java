@@ -1,20 +1,46 @@
+// 인스턴스 메서드와 클래스 메서드의 활용 - wrapper 클래스 
 package com.eomcs.oop.ex04;
 
 public class Exam0220 {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
+    // 다음과 같이 생성자를 통해 Integer 객체를 생성할 수 있지만,
+    // 이 생성자는 사용하지 말라고 권고한 것이기 때문에 
+    // 가능한 개발 중에 사용하지 말라!
+    //Integer i1 = new Integer(100);
+    //Integer i2 = new Integer(200);
+    //Integer i3 = new Integer(300);
+    
+    // 대신 다음과 같이 클래스 메서드를 사용하여 Integer 인스턴스를 생성하라!
+    Integer i1 = Integer.valueOf(100);
+    Integer i2 = Integer.valueOf(200);
+    Integer i3 = Integer.valueOf(300);
+    
+    // 인스턴스 메서드 사용
+    System.out.println(i2.compareTo(i1));
+    System.out.println(i2.compareTo(i3));
 
-    // int -> Integer, byte -> Byte, short -> Short, long -> Long
-    // float -> Float, double ->Double, char -> Character
-    Integer i1 = new Integer(100); // 객체 지향적이지 않으므로 사용하지 않기를 권고함
-    Integer i2 = new Integer(100);
-    System.out.println(i1.toString());
-    System.out.println(i2.toString());
-    System.out.println(i1 == i2); // 값이 같더라도 주소가 두개생기지만
+    int v1 = i2.intValue();
+    System.out.println(v1);
 
-    Integer i3 = Integer.valueOf(100); // new Integer 을 대신할 valueOf를 사용한다.
-    Integer i4 = Integer.valueOf(100);
-    System.out.println(i3.toString());
-    System.out.println(i4.toString());
-    System.out.println(i3 == i4); // 공통 주소를 사용하므로 값이 같다면 true 값이 출력된다.
+    // 스태틱 메서드 = 클래스 메서드 사용
+    int v2 = Integer.parseInt("1280");
+    String s1 = Integer.toBinaryString(77);
+    String s2 = Integer.toOctalString(77);
+    String s3 = Integer.toHexString(77);
+    System.out.printf("77 = %s, %s, %s\n", s1, s2, s3);
+
+    Integer x1 = Integer.valueOf("44"); // 문자열에 있는 수를 10진수로 간주한다.
+    Integer x2 = Integer.valueOf("44", 16); // 16진수라고 지정한다.
+    System.out.printf("%d, %d\n", x1, x2);
+
+    float f = Float.parseFloat("3.14f");
+    boolean b = Boolean.parseBoolean("true");
+    System.out.printf("%f, %b\n", f, b);
+
   }
 }
+
+
+
+
+

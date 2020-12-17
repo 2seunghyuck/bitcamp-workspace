@@ -1,75 +1,65 @@
+// Queue 구현과 사용
 package com.eomcs.basic.ex06;
 
+import java.util.concurrent.ArrayBlockingQueue;
+
 public class Exam0110 {
+
   public static void main(String[] args) {
-    int age = 60;
+    String s1 = new String("aaa");
+    String s2 = new String("bbb");
+    String s3 = new String("ccc");
+    String s4 = new String("ddd");
+    String s5 = new String("eee");
 
-    // if문법은 true일때 아래 명령어를 실행한다.
-    if (age >= 19) // if 문장의 ;까지 한문장으로 취급하지만, 블럭으로 묶으면여러문장을 실행할 수 있다.
-      System.out.println("성인입니다.");
-    if (age >= 65)
-      System.out.println("노인연금 수령대상자 입니다.");
+    ArrayBlockingQueue queue = new ArrayBlockingQueue(10);
+    queue.offer(s1); // aaa,
+    queue.offer(s2); // aaa, bbb,
+    queue.offer(s3); // aaa, bbb, ccc,
+    print(queue);
 
-    System.out.println("--------------------------------");
-    int gender = 2;
+    System.out.println("==>" + queue.poll()); // bbb, ccc,
+    System.out.println("==>" + queue.poll()); // ccc,
+    print(queue);
 
-    if (gender == 1) {
-      System.out.println("여성");
-      System.out.println("-----");
-    } else {// 단독으로 실행할 수 없다.
-      System.out.println("남성");
-      System.out.println("-----");
+    queue.offer(s4); // ccc, ddd,
+    queue.offer(s5); // ccc, ddd, eee,
+    print(queue);
+
+    System.out.println("------------------------");
+
+    String value;
+    while ((value = (String) queue.poll()) != null) {
+      System.out.println(value);
     }
+  }
 
-    System.out.println("--------------------------------");
-
-    int age2 = 17;
-
-    if (age2 >= 19)
-      if (age2 >= 65)
-        System.out.println("지하철 무임승차 가능합니다.");
-      else
-        System.out.println("미성년 입니다.");
-    System.out.println("--------------------------------");
-
-    int age3 = 15;
-
-    if (age3 < 8)
-      System.out.println("아동!");
-    else if (age3 < 14)
-      System.out.println("어린이!");
-    else if (age3 < 19)
-      System.out.println("청소년!");
-    else if (age3 < 65)
-      System.out.println("성인!");
-    else
-      System.out.println("노인!");
-    System.out.println("--------------------------------");
-
-    age3 = 67;
-    if (age3 < 8)
-      System.out.println("아동!");
-    else if (age3 < 14) // else if 라는문법은 없지만,보기좋게 정렬한 것.
-      System.out.println("어린이!");
-    else if (age3 < 19)
-      System.out.println("청소년!");
-    else if (age3 < 65)
-      System.out.println("성인!");
-    else
-      System.out.println("노인!");
-    System.out.println("--------------------------------");
-
-    age3 = 22;
-    if (age3 < 8)
-      System.out.println("아동!");
-    else if (age3 < 14)
-      System.out.println("어린이!");
-    else if (age3 < 19)
-      System.out.println("청소년!");
-    else if (age3 < 65)
-      System.out.println("성인!");
-    else
-      System.out.println("노인!");
-
+  static void print(ArrayBlockingQueue queue) {
+    Object[] arr = queue.toArray();
+    for (int i = 0; i < arr.length; i++) {
+      System.out.print(arr[i] + ", ");
+    }
+    System.out.println();
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

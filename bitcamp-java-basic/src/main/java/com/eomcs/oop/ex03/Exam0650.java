@@ -1,42 +1,36 @@
-// 스태틱 초기화 블록(static initializer) - 클래스 필드 사용
+// 스태틱 초기화 블록(static initializer) - Class.forName()
 package com.eomcs.oop.ex03;
 
 public class Exam0650 {
 
   public static class A {
-    static int a = 100;
+    static int a;
+
+    static void m() {}
+
+    // 클래스가 로딩될 때 스태틱 초기화 블록은 실행된다.
+    // 여러 개의 스태틱 블록이 있을 때, 컴파일러는 한 개의 블록으로 합친다.
+    // - 바이트코드(Exam0650$A.class)를 확인해 보라.
+    //
+    static {
+      System.out.println("Static{} 11111");
+    }
 
     static {
-      a = 200;
-      System.out.println("static {} 실행");
-      // 순서 --> a => 100 으로 초기화
-      //            => static {} 실행되면서 200으로 초기화;
+      System.out.println("Static{} 22222");
     }
-    // static 초기화 블럭은 선언 순서대로 진행된다.
-    static {
-      b = 400;
-    }
-    static int b = 300;
-    // 변수 초기화 문장을 컴파일할 때,
-    // - 일단 모든 스태틱 필드를 만든다.
-    // - 스태틱 변수 초기화 문장을 스태틱 블럭으로 변경한 다음에
-    //   모든 스태틱 블럭을 순서대로 한 스태틱 안에서 실행한다.
-    // - 스태틱 변수 초기화 문장과 스태틱 블록을 '선언한 순서'대로 하나의 스태틱 블록에 합친다.
-    // - 위의 문장은 다음문장으로 바뀐다.
-    // static int a;
-    // static {
-    // a = 100;
-    // a = 200;
-    // System.out.println("static {} 실행");
-    // b = 300;
-    // b = 400;
-    //}
   }
 
   public static void main(String[] args) throws Exception {
 
-    System.out.println(A.a);
-    System.out.println(A.b);
+    // 클래스가 로딩되는 경우
+    // 4) 자바에서 제공하는 도구를 사용하여 클래스를 로딩할 때,
+    // - 이미 클래스가 로딩되어 있다면 다시 로딩하지 않는다.
+    // - 메모리 절약을 위해, 자바는 중복해서 클래스를 메모리에 로딩하지 않는다.
+    //
+    Class.forName("com.eomcs.oop.ex03.Exam0650$A");
+
+    System.out.println("종료!");
   }
 }
 

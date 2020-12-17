@@ -11,10 +11,11 @@ import com.eomcs.algorithm.data_structure.linkedlist.MyLinkedList;
 //
 // 테스트2: MyStackTest2
 // 6) Object.clone()을 오버라이딩 : deep copy
-// 테스트3 : MyStackTest3
+//
+// 테스트3: MyStackTest3
 // 7) 제네릭 적용
 //
-public class MyStack07<E> extends MyLinkedList<E> implements Cloneable {
+public class MyStack07<E> extends MyLinkedList<E> {
 
   public E push(E item) {
     add(item);
@@ -36,28 +37,17 @@ public class MyStack07<E> extends MyLinkedList<E> implements Cloneable {
   }
 
   public boolean empty() {
-    return this.size() == 0;
+    return size() == 0;
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public MyStack07<E> clone() throws CloneNotSupportedException {
-    // 새 스택을 만든다.
     MyStack07<E> newStack = new MyStack07<>();
-
-    // 기존 스택의 값을 가져온다.
     Object[] values = this.toArray();
-
-    // 기존 스택의 값을 새 스택에 넣는다.
-    for(Object value : values) {
-      newStack.push((E)value);
+    for (Object value : values) {
+      newStack.push((E) value);
     }
     return newStack;
   }
 }
-
-
-
-
-
-

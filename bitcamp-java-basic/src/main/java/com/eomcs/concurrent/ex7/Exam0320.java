@@ -34,8 +34,7 @@ public class Exam0320 {
 
     // execute()와 같다.
     // => 단 작업의 종료 상태를 확인할 수 있는 Future 객체를 리턴한다.
-    //  - 작업 종료 전까지 상위 스레드의 작업을 종료하지 않고 기다린다.
-
+    //
     Future<?> future1 = executorService.submit(new MyRunnable(2000));
     Future<?> future2 = executorService.submit(new MyRunnable(4000));
 
@@ -45,12 +44,11 @@ public class Exam0320 {
     //
     future2.get();
     System.out.println("두 번째 작업이 끝났음");
-    if (future1.get() == null) // 끝나면 null을 리턴함을 보여주기위해 if문 사용
-      System.out.println("첫 번째 작업이 끝났음");
+
+    future1.get();
+    System.out.println("첫 번째 작업이 끝났음");
 
     System.out.println("main() 종료!");
-
-    executorService.shutdown();
   }
 }
 

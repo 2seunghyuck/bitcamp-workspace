@@ -8,6 +8,10 @@ public class Exam0620 {
 
     static void m() {}
 
+    // 클래스가 로딩될 때 스태틱 초기화 블록은 실행된다.
+    // 여러 개의 스태틱 블록이 있을 때, 컴파일러는 한 개의 블록으로 합친다.
+    // - 바이트코드(Exam0620$A.class)를 확인해 보라.
+    //
     static {
       System.out.println("Static{} 11111");
     }
@@ -19,9 +23,9 @@ public class Exam0620 {
 
   public static void main(String[] args) throws Exception {
 
-
-    A obj1; // 레퍼런스만 만들경우 staticfield 로딩안함
-    A.m(); // static 필드 사용할때 도 초기화
+    // 클래스가 로딩되는 경우,
+    // 1) 클래스 멤버(필드와 메서드)를 최초로 사용할 때
+    A.a = 100;
 
     System.out.println("종료!");
   }

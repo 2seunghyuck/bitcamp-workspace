@@ -6,10 +6,11 @@ import com.eomcs.algorithm.data_structure.linkedlist.MyLinkedList;
 // 2) Queue에 값을 추가하는 offer(Object)를 정의한다.
 // 3) Queue에서 값을 꺼내는 poll()을 정의한다.
 // 4) Queue에서 제일 앞에 있는 값을 조회하는 peek()을 정의한다.
-// 테스트 : MyQueuetest2
-// 5) Queue.clone() => 오버라이딩 DeepCopy
-
-public class MyQueue05 extends MyLinkedList implements Cloneable {
+//
+// 테스트2: MyQueueTest2
+// 5) Queue.clone() 오버라이딩 : deep copy
+//
+public class MyQueue05 extends MyLinkedList {
 
   public boolean offer(Object e) {
     return add(e);
@@ -28,8 +29,15 @@ public class MyQueue05 extends MyLinkedList implements Cloneable {
     }
     return get(0);
   }
+
+  // 
   @Override
   public MyQueue05 clone() throws CloneNotSupportedException {
+    // => MyQueue는 MyLinkedList를 상속 받았고,
+    //    MyLinkedList의 경우 노드와 노드 사이를 연결해야 하기 때문에 
+    //    단순히 'shallow copy'를 수행해서는 안된다.
+    // => 다음과 같이 새 Queue를 만들고, 
+    //    기존 Queue에 저장된 값을 꺼내서 새 Queue에 저장해야 한다.
     MyQueue05 newQueue = new MyQueue05();
     Object[] values = this.toArray();
     for (Object value : values) {
