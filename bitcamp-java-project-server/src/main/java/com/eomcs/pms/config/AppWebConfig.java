@@ -1,7 +1,10 @@
 package com.eomcs.pms.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -9,28 +12,28 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.util.UrlPathHelper;
-import bitcamp.app2.Controller04_1_Interceptor4;
+import com.eomcs.pms.service.MemberService;
+import com.eomcs.pms.web.interceptor.AuthInterceptor;
+import com.eomcs.pms.web.interceptor.AutoLoginInterceptor;
 
 @ComponentScan("com.eomcs.pms.web")
-// => 지정된 패키지를 뒤져서 @Component, @Controller 등 붙은 클래스에 대해 인스턴스를 생성한다.
 @EnableWebMvc
-// => Web MVC 관련 객체를 등록하고 설정한다.
-// => WebMvcConfigurer 구현체를 찾아 메서드를 호출한다.
 public class AppWebConfig implements WebMvcConfigurer {
 
-  // DispatcherServlet의 기본 ViewResolver를 교체하기
-  // 1) XML 설정
-  // <bean id="viewResolver"
-  // class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-  // <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-  // <property name="prefix" value="/WEB-INF/jsp/"/>
-  // <property name="suffix" value=".jsp"/>
-  // </bean>
-  //
-  // 2) Java Config 설정
+  @Autowired MemberService memberService;
+
   @Bean
   public ViewResolver viewResolver() {
     return new InternalResourceViewResolver("/WEB-INF/jsp/", ".jsp");
+  }
+
+  @Bean
+  public MultipartResolver multipartResolver() {
+    CommonsMultipartResolver mr = new CommonsMultipartResolver();
+    mr.setMaxUploadSize(10000000);
+    mr.setMaxInMemorySize(2000000);
+    mr.setMaxUploadSizePerFile(5000000);
+    return mr;
   }
 
   // @MatrixVariable 애노테이션 처리를 활성화시킨다.
@@ -40,11 +43,17 @@ public class AppWebConfig implements WebMvcConfigurer {
     helper.setRemoveSemicolonContent(false);
     configurer.setUrlPathHelper(helper);
   }
+
+  // 프론트 컨트롤러에 적용할 인터셉터 설정하기
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new Controller04_1_Interceptor4())//
-    .addPathPatterns("/c04_1/**") //
-    .excludePathPatterns("/c04_1/a/**");
+    // 인터셉터 실행은 등록 순서이다.
+
+    // 자동 로그인을 수행하는 인터셉터를 삽입한다.
+    registry.addInterceptor(new AutoLoginInterceptor(memberService));
+
+    // 모든 "/app/*" 요청에 대해 로그인 여부를 검사하는 인터셉터를 삽입한다.
+    registry.addInterceptor(new AuthInterceptor());
   }
 }
 
