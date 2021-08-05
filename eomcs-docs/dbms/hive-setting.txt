@@ -1,0 +1,75 @@
+1.apache-hive 디렉토리로 가서 
+2. schematool -initSchema -dbtype mysql 으로 최초 사용전 초기화를 해준다.
+3. 초기화 후
+4. bin/hive  로 cli로 접근해서 사용한다.
+
+5. airline.csv 를 사용한 데이터 입력
+
+    CREATE TABLE airline_delay(YEAR INT, MONTH INT, DAY_OF_MONTH INT,DAY_OF_WEEK INT,
+    FL_DATE STRING, UNIQUE_CARRIER STRING, TAIL_NUM STRING, FL_NUM INT, ORIGIN_AIRPORT_ID INT,
+    ORIGIN STRING, ORIGIN_STATE_ABR STRING, DEST_AIRPORT_ID INT, DEST STRING, DEST_STATE_ABR STRING,
+    CRS_DEP_TIME INT, DEP_TIME INT, DEP_DELAY INT, DEP_DELAY_NEW INT, DEP_DEL15 INT,  
+    DEP_DELAY_GROUP INT, TAXI_OUT INT , WHEELS_OFF STRING , WHEELS_ON STRING ,TAXI_IN INT,
+    CRS_ARR_TIME INT, ARR_TIME INT , ARR_DELAY INT, ARR_DELAY_NEW INT ,ARR_DEL15 INT,
+    ARR_DELAY_GROUP INT ,CANCELLED INT ,CANCELLATION_CODE STRING, DIVERTED INT, CRS_ELAPSED_TIME INT,
+    ACTUAL_ELAPSED_TIME INT, AIR_TIME INT, FLIGHTS INT ,DISTANCE INT , DISTANCE_GROUP INT,
+    CARRIER_DELAY STRING, WEATHER_DELAY STRING, NAS_DELAY STRING, SECURITY_DELAY STRING,LATE_AIRCRAFT_DELAY STRING)
+    
+    PARTITIONED BY (delayYear INT)
+    
+    ROW FORMAT DELIMITED
+        FIELDS TERMINATED BY ','
+        LINES TERMINATED BY '\n'
+    
+    STORED AS TEXTFILE;
+
+6. 데이터 입력 
+    load data inpath 'air_input/airOT199106.csv' // hdfs내부의 파일을 
+    overwrite into table airline_delay           // hive 의 테이블로 덮어쓰는 과정(덮어씀 그냥 넣으려면 overwrite지운다.)
+    partition (delayYear='1991');
+
+    // 일반적으로 옮기는 방식
+    load data local inpath '/mnt/share/carriers.csv'
+    into table carrier_code 
+    partition (delayYear='1991');
+    
+    ALTER TABLe airline_delay DROP IF EXISTS PARTITION(delayYear='1991', year='1991', month='05');
+
+7. ㄷㅔ이터 검색
+    select YEAR, MONTH, DAY_OF_MONTH, UNIQUE_CARRIER, ORIGIN, DEST, CRS_DEP_TIME, DEP_DELAY, CRS_ARR_TIME, ARR_DELAY
+    from airline_delay
+    where delayYear = '1991'
+    limit 20;
+
+    select year, month, AVG(arr_Delay) as AVG_AD, Avg(DEP_DELAY) AVG_DD
+    from airline_delay
+    where ARR_DELAY > 0 and DEP_DELAY > 0
+    group by year, month
+    order by year, month desc;
+
+8. 새로운 테이블 생성
+
+    create table carrier_code(code String, description string)
+    row format DELIMITED
+    fields TERMINATED by ','
+    lines TERMINATED by '\n'
+    stored as textfile;
+    
+9. 도착지연이 발생한 정보를 다음과 같이 출력 - 년도, 항공사콛, 항공사이름, 도착지연 건수 ,지연 많은 순
+    select c.code, a.year, c.description, count(*) as arr_delay_count
+    from airline_delay a inner join carrier_code c
+    on a.UNIQUE_CARRIER=c.code 
+    where a.arr_Delay > 0
+    group by c.code, a.year, c.description
+    order by arr_delay_count desc;
+
+10. 쿼리문으로 출력한 결과를 파일로 저장.
+    1. hdfs에 디렉토리 생성
+    2. hive> insert overwrite directory 'air-delay-out' 
+             select 문 작성
+             "select c.code, a.year, c.description, count(*) as arr_delay_count
+    from airline_delay a inner join carrier_code c
+    on a.UNIQUE_CARRIER=c.code 
+    where a.arr_Delay > 0
+    group by c.code, a.year, c.description
+    order by arr_delay_count desc" > ~/work/arr-dealy-out
